@@ -14,11 +14,11 @@ export default function Skills() {
 
   return (
     <section className={`py-16 ${theme === 'dark' ? 'bg-gray-900' : 'bg-white'}`} id="skills">
-      <div className="container mx-auto px-6">
+      <div className="container px-6">
         <h2 className={`text-3xl font-bold mb-8 ${
           theme === 'dark' ? 'text-white' : 'text-gray-900'
-        }`}>Skills</h2>
-        <div className="grid sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+        }`}>🖱️ Skills</h2>
+        <div className="grid sm:grid-cols-1  gap-3">
           {skills.map((skill) => (
               
             <div key={skill.name} 
@@ -29,10 +29,10 @@ export default function Skills() {
                   theme === 'dark' ? 'text-white' : 'text-gray-900'
                   }`}>{skill.name}
                 </span>
-                <span className={
-                  theme === 'dark' ? 'text-gray-400' : 'text-gray-600'
-                  }>{skill.level}%
-                </span>
+                {/*<span className={*/}
+                {/*  theme === 'dark' ? 'text-gray-400' : 'text-gray-600'*/}
+                {/*  }>{skill.level}%*/}
+                {/*</span>*/}
               </div>
               
               {/*<div className={`w-full rounded-full h-2.5 ${theme === 'dark' ? 'bg-gray-700' : 'bg-gray-200'}`}>*/}

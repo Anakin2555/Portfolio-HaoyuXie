@@ -6,6 +6,7 @@ import { projects } from '../data/projects';
 import { blogPosts } from '../data/blog-posts';
 import { useTheme } from '../context/ThemeContext';
 import {useNavigate} from "react-router-dom";
+import Update from "../components/home/Update.tsx";
 
 export default function Home() {
   const { theme } = useTheme();
@@ -18,23 +19,25 @@ export default function Home() {
   return (
       <div className="min-h-screen">
           <Hero/>
-          
-          <Skills></Skills>
+          <div className={"flex flex-row justify-center"}>
+              <Update></Update>
+              <Skills></Skills>
+          </div>
           
           <section className={`py-16 ${theme === 'dark' ? 'bg-gray-800' : 'bg-gray-50'}`}>
               <div className="container mx-auto px-6 flex flex-col items-center ">
 
                   <h2 className={`text-3xl font-bold mb-8 ${theme === 'dark' ? 'text-white' : 'text-gray-900'}`}>
-                      Featured Projects
+                      👜 Featured Projects
                   </h2>
                   <div className="sm:w-[500px] md:w-[700px] lg:w-[900px] flex flex-col items-center gap-8">
-                      {projects.slice(0, 3).map((project) => (
+                      {projects.slice(0, 2).map((project) => (
                           <ProjectCard key={project.id} project={project}/>
                       ))}
                   </div>
 
                   <a className={"text-xl text-white cursor-pointer mt-5"} onClick={toProject}>
-                      Not Enough? Click here{'>'}
+                      Not Enough? 👉Click here{'>'}
                   </a>
 
               </div>
