@@ -6,11 +6,11 @@ import {BilibiliWhite,BilibiliBlack} from '../icon/bilibili';
 export default function Hero() {
   const { theme } = useTheme();
   const [isVisible, setIsVisible] = useState(false);
-
+  
   useEffect(() => {
     setIsVisible(true);
   }, []);
-
+  
   return (
     <section
       className={`min-h-screen relative overflow-hidden ${
@@ -31,7 +31,7 @@ export default function Hero() {
           }`}>
             <div className="w-32 h-32 rounded-full overflow-hidden border-4 border-blue-500 relative z-10 animate-profile-image">
               <img
-                src="https://avatars.githubusercontent.com/u/60338576?v=4"
+                src="/src/assets/img/user-profile.png"
                 alt="Profile"
                 className="w-full h-full object-cover"
               />

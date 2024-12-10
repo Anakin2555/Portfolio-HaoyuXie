@@ -2,6 +2,7 @@ import { Moon, Sun } from 'lucide-react';
 import { useTheme } from '../../context/ThemeContext';
 import Navigation from './Navigation';
 
+
 export default function Header() {
   const { theme, toggleTheme } = useTheme();
 
@@ -49,7 +50,7 @@ export default function Header() {
               {theme === 'dark' ? <Sun size={20} /> : <Moon size={20} />}
             </button>
             <img
-              src="https://avatars.githubusercontent.com/u/60338576?v=4"
+              src="/src/assets/img/user-profile.png"
               alt="Profile"
               className="w-8 h-8 rounded-full"
             />
