@@ -11,18 +11,22 @@ import Update from "../components/home/Update.tsx";
 export default function Home() {
   const { theme } = useTheme();
   const navigate = useNavigate()
-  
   function toProject(){
       navigate('/projects')
   }
-
+  
+  function handleScrollToUpdate(){
+      const target=document.getElementById('updateSection')
+      target?.scrollIntoView({behavior:'smooth'})
+      
+  }
   return (
       <div className="min-h-screen">
-          <Hero/>
-          <div className={"flex flex-row justify-center"}>
+          <Hero scrollToUpdate={handleScrollToUpdate}/>
+          <section className={"flex flex-row justify-center"} id="updateSection">
               <Update></Update>
               <Skills></Skills>
-          </div>
+          </section>
           
           <section className={`py-16 ${theme === 'dark' ? 'bg-gray-800' : 'bg-gray-50'}`}>
               <div className="container mx-auto px-6 flex flex-col items-center ">

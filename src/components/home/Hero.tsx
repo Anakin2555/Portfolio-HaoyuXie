@@ -4,13 +4,15 @@ import { useTheme } from '../../context/ThemeContext';
 import AnimatedText from './AnimatedText';
 import {BilibiliWhite,BilibiliBlack} from '../icon/bilibili';
 import userProfile from '../../assets/img/user-profile.png'
-export default function Hero() {
+// @ts-ignore
+export default function Hero({scrollToUpdate}) {
   const { theme } = useTheme();
   const [isVisible, setIsVisible] = useState(false);
   
   useEffect(() => {
     setIsVisible(true);
   }, []);
+  
   
   return (
     <section
@@ -45,7 +47,7 @@ export default function Hero() {
           }`}>
             
             {/*标题内容*/}
-            <AnimatedText text="Hi, I'm Haoyu Xie" delay={50} />
+            <AnimatedText text="Hi👋, I'm Haoyu Xie" delay={50} />
             
             
           </h1>
@@ -55,7 +57,7 @@ export default function Hero() {
           } ${theme === 'dark' ? 'text-gray-300' : 'text-gray-600'}`}>
             
             {/*自我介绍*/}
-            A passionate <b>Front-End Developer</b> and <b>UX Designer</b> aspiring to excel as an independent developer.
+            A passionate <b>Front-End Developer</b> and <b>UX Designer</b> aspiring to excel as an independent developer⌨️.
             
           </p>
 
@@ -99,9 +101,9 @@ export default function Hero() {
             isVisible ? 'translate-y-0 opacity-100' : 'translate-y-10 opacity-0'
           }`}>
             <a
-              href="#projects"
+              onClick={scrollToUpdate}
               aria-label="Scroll to projects"
-              className="inline-block"
+              className="inline-block cursor-pointer"
             >
               <svg
                 className={`w-8 h-8 ${theme === 'dark' ? 'text-gray-300' : 'text-gray-600'}`}

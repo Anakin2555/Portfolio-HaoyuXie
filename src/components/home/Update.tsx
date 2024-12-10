@@ -5,7 +5,7 @@ export default function Update(){
     const {theme} = useTheme();
     const updateList=[{
         id:1,
-        title:"My research paper \"Decomposing and Fusing Intra- and Inter-Sensor Spatio-Temporal Signal for Multi-SensorWearable Human Activity Recognition\" has been accepted by AAAI 2025!",
+        title:"My research paper \"Decomposing and Fusing Intra- and Inter-Sensor Spatio-Temporal Signal for Multi-Sensor Wearable Human Activity Recognition\" has been accepted by AAAI 2025!",
         date:"2024.12.10",
         category:"News"
     },{
