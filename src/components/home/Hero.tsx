@@ -3,6 +3,7 @@ import {Github, Mail} from 'lucide-react';
 import { useTheme } from '../../context/ThemeContext';
 import AnimatedText from './AnimatedText';
 import {BilibiliWhite,BilibiliBlack} from '../icon/bilibili';
+import userProfile from '../../assets/img/user-profile.png'
 export default function Hero() {
   const { theme } = useTheme();
   const [isVisible, setIsVisible] = useState(false);
@@ -31,7 +32,7 @@ export default function Hero() {
           }`}>
             <div className="w-32 h-32 rounded-full overflow-hidden border-4 border-blue-500 relative z-10 animate-profile-image">
               <img
-                src="/src/assets/img/user-profile.png"
+                src={userProfile}
                 alt="Profile"
                 className="w-full h-full object-cover"
               />
