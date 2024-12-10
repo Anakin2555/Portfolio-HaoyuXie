@@ -77,7 +77,7 @@ export default function Hero({scrollToUpdate}) {
               },
               {
                 icon: Mail,
-                href: 'mailto:your-email@example.com',
+                href: 'mailto:919673126@qq.com',
                 label: 'Email',
               },
             ].map(({ icon: Icon, href, label }, index) => (
