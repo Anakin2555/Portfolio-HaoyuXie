@@ -1,6 +1,7 @@
 import { Project } from '../types';
 import adven_cover from '../assets/img/adven_cover.png'
 import lost_found_cover from '../assets/img/lost_found_cover.jpg'
+import mental from '../assets/img/mental_cover.png'
 export const projects: Project[] = [
   {
     id: '1',
@@ -22,10 +23,10 @@ export const projects: Project[] = [
   },
   {
     id: '3',
-    title: 'E-commerce Platform',
-    description: 'A full-featured e-commerce platform built with React and Node.js',
-    image: 'https://images.unsplash.com/photo-1557821552-17105176677c?auto=format&fit=crop&q=80',
-    tags: ['React', 'Node.js', 'MongoDB', 'Redux'],
+    title: 'Mental Health Website for Teenagers',
+    description: 'A Website aiming to solve mental health problems for teenagers.',
+    image: mental,
+    tags: ['Vue2', 'SpringBoot', 'MySQL','Redis'],
     demoUrl: 'https://demo.example.com',
     githubUrl: 'https://github.com/example/project'
   },

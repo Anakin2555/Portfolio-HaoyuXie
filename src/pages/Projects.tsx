@@ -2,6 +2,7 @@ import { useState, useMemo } from 'react';
 import { projects } from '../data/projects';
 import ProjectCard from '../components/projects/ProjectCard';
 import ProjectFilter from '../components/projects/ProjectFilter';
+import Masonry from 'react-masonry-css';
 
 export default function Projects() {
   const [selectedCategory, setSelectedCategory] = useState('all');
@@ -17,6 +18,12 @@ export default function Projects() {
       project.tags.includes(selectedCategory)
     );
   }, [selectedCategory]);
+
+  const breakpointColumns = {
+    default: 3,
+    1024: 2,
+    640: 1
+  };
 
   return (
     <div className="min-h-screen pt-24 pb-16">
@@ -34,11 +41,17 @@ export default function Projects() {
           onCategoryChange={setSelectedCategory}
         />
 
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+        <Masonry
+          breakpointCols={breakpointColumns}
+          className="flex -ml-8 w-auto"
+          columnClassName="pl-8 bg-clip-padding"
+        >
           {filteredProjects.map((project) => (
-            <ProjectCard key={project.id} project={project} />
+            <div key={project.id} className="mb-8">
+              <ProjectCard project={project} />
+            </div>
           ))}
-        </div>
+        </Masonry>
 
         {filteredProjects.length === 0 && (
           <div className="text-center py-12">

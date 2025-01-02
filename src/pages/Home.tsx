@@ -34,8 +34,8 @@ export default function Home() {
                   <h2 className={`text-3xl font-bold mb-8 ${theme === 'dark' ? 'text-white' : 'text-gray-900'}`}>
                       👜 Featured Projects
                   </h2>
-                  <div className="sm:w-[500px] md:w-[700px] lg:w-[900px] flex flex-col items-center gap-8">
-                      {projects.slice(0, 2).map((project) => (
+                  <div className="sm:w-[500px] md:w-[800px] lg:w-[1100px] flex flex-col items-center gap-8">
+                      {projects.slice(0, 3).map((project) => (
                           <ProjectCard key={project.id} project={project}/>
                       ))}
                   </div>
