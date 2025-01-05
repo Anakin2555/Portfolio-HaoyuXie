@@ -3,8 +3,8 @@ import { useTheme } from '../../context/ThemeContext';
 
 const navItems = [
   { path: '/', label: 'Home', exact: true },
-  { path: '/blog', label: 'Blog' },
   { path: '/projects', label: 'Project' },
+  { path: '/blog', label: 'Blog' },
   { path: '/thoughts', label: 'Message' },
 ];
 

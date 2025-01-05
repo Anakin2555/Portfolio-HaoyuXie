@@ -19,8 +19,10 @@ export default function Blog() {
     <div className="min-h-screen pt-24 pb-16">
       <div className="container mx-auto px-6">
         <header className="mb-12">
-          <h1 className="text-4xl font-bold text-gray-900 mb-4">Blog</h1>
-          <p className="text-xl text-gray-600">
+          <h1 className="text-4xl font-bold text-gray-900 dark:text-gray-100 mb-4">
+            Blog
+          </h1>
+          <p className="text-xl text-gray-600 dark:text-gray-400">
             Thoughts, tutorials, and insights about web development and technology.
           </p>
         </header>

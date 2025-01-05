@@ -21,16 +21,18 @@ export default function Projects() {
 
   const breakpointColumns = {
     default: 3,
-    1024: 2,
-    640: 1
+    1200: 2,
+    700: 1
   };
 
   return (
     <div className="min-h-screen pt-24 pb-16">
       <div className="container mx-auto px-6">
         <header className="mb-12">
-          <h1 className="text-4xl font-bold text-gray-900 mb-4">My Projects</h1>
-          <p className="text-xl text-gray-600">
+          <h1 className="text-4xl font-bold text-gray-900 dark:text-gray-100 mb-4">
+            My Projects
+          </h1>
+          <p className="text-xl text-gray-600 dark:text-gray-400">
             A collection of my work, side projects, and experiments.
           </p>
         </header>
@@ -52,6 +54,9 @@ export default function Projects() {
             </div>
           ))}
         </Masonry>
+
+      
+
 
         {filteredProjects.length === 0 && (
           <div className="text-center py-12">

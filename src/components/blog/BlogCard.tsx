@@ -11,9 +11,11 @@ export default function BlogCard({ post }: BlogCardProps) {
   const { theme } = useTheme();
 
   return (
-    <article className={`rounded-xl shadow-lg overflow-hidden ${
-      theme === 'dark' ? 'bg-gray-700' : 'bg-white'
-    }`}>
+    <Link 
+      to={`/blog/${post.id}`}
+      className={`rounded-xl shadow-lg overflow-hidden ${
+        theme === 'dark' ? 'bg-gray-700' : 'bg-white'
+      }`}>
       <img
         src={post.image}
         alt={post.title}
@@ -33,19 +35,19 @@ export default function BlogCard({ post }: BlogCardProps) {
         <h3 className={`text-xl font-semibold mb-2 ${
           theme === 'dark' ? 'text-white' : 'text-gray-900'
         }`}>
-          <Link to={`/blog/${post.id}`} className={`hover:${
+          <div className={`hover:${
             theme === 'dark' ? 'text-blue-400' : 'text-blue-600'
           }`}>
             {post.title}
-          </Link>
+          </div>
         </h3>
         <p className={`${
           theme === 'dark' ? 'text-gray-300' : 'text-gray-600'
         }`}>
           {post.excerpt}
         </p>
-        <Link
-          to={`/blog/${post.id}`}
+        <div
+        
           className={`inline-block mt-4 ${
             theme === 'dark' 
               ? 'text-blue-400 hover:text-blue-300' 
@@ -53,8 +55,8 @@ export default function BlogCard({ post }: BlogCardProps) {
           }`}
         >
           Read More →
-        </Link>
+        </div>
       </div>
-    </article>
+    </Link>
   );
 }

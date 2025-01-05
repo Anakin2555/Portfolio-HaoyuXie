@@ -25,7 +25,9 @@ export default function Home() {
           <Hero scrollToUpdate={handleScrollToUpdate}/>
           <section className={"flex flex-row justify-center"} id="updateSection">
               <Update></Update>
-              <Skills></Skills>
+              <div className="hidden md:block" >
+                <Skills/>
+              </div>
           </section>
           
           <section className={`py-16 ${theme === 'dark' ? 'bg-gray-800' : 'bg-gray-50'}`}>
@@ -40,7 +42,7 @@ export default function Home() {
                       ))}
                   </div>
 
-                  <a className={"text-xl text-white cursor-pointer mt-5"} onClick={toProject}>
+                  <a className={`text-xl ${theme==='dark'?'text-white':'text-gray-800'} cursor-pointer mt-5`} onClick={toProject}>
                       Not Enough? 👉Click here{'>'}
                   </a>
 
