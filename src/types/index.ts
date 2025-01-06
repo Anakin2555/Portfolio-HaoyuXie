@@ -33,3 +33,17 @@ export interface Thought{
   date: string
   icon: string
 }
+
+export interface Comment {
+  id: string;
+  text: string;
+  timestamp: string;
+  ip: string;
+  pageId: string;
+  parentId?: string;
+  replies?: Comment[];
+}
+
+export interface MessageBoardProps {
+  pageId: string;
+}

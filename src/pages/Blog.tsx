@@ -2,6 +2,7 @@ import { useState, useMemo } from 'react';
 import { blogPosts } from '../data/blog-posts';
 import BlogCard from '../components/blog/BlogCard';
 import BlogSearch from '../components/blog/BlogSearch';
+import MessageBoard from '../components/layout/MessageBoard';
 
 export default function Blog() {
   const [searchQuery, setSearchQuery] = useState('');
@@ -43,6 +44,8 @@ export default function Blog() {
             <p className="text-gray-600">No blog posts found matching your search.</p>
           </div>
         )}
+
+        <MessageBoard pageId="blog" />
       </div>
     </div>
   );

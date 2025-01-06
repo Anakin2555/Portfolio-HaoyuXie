@@ -7,6 +7,7 @@ import { blogPosts } from '../data/blog-posts';
 import { useTheme } from '../context/ThemeContext';
 import {useNavigate} from "react-router-dom";
 import Update from "../components/home/Update.tsx";
+import MessageBoard from '../components/layout/MessageBoard.tsx';
 
 export default function Home() {
   const { theme } = useTheme();
@@ -62,6 +63,9 @@ export default function Home() {
               </div>
           </section>
 
+          <MessageBoard pageId="home" />
+        
+          
 
       </div>
   );

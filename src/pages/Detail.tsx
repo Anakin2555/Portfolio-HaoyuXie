@@ -4,6 +4,7 @@ import { ArrowLeft, Clock } from 'lucide-react';
 import { useTheme } from '../context/ThemeContext';
 import { blogPosts } from '../data/blog-posts';
 import { projects } from '../data/projects';
+import MessageBoard from '../components/layout/MessageBoard';
 
 export default function Detail() {
   const { id } = useParams();
@@ -141,6 +142,8 @@ export default function Detail() {
             )}
           </div>
         )}
+
+          <MessageBoard pageId={location.pathname.slice(1)} />
       </article>
     </div>
   );

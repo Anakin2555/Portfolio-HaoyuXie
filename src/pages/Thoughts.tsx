@@ -2,6 +2,7 @@ import { useState,useEffect, useRef } from 'react';
 // import Masonry from 'react-masonry-css';
 import { thoughts } from '../data/thoughts';
 import { ThoughtCard } from '../components/thoughts/ThoughtCard';
+import MessageBoard from '../components/layout/MessageBoard';
 
 export default function Thoughts() {
   const [expandedId, setExpandedId] = useState<string | null>(null);
@@ -44,6 +45,7 @@ export default function Thoughts() {
     handleResize(); // 初始化列宽
     window.addEventListener('resize', handleResize); // 监听窗口大小变化
 
+    console.log('resized');
     return () => window.removeEventListener('resize', handleResize); // 清理事件监听
   }, []);
 
@@ -103,6 +105,7 @@ export default function Thoughts() {
           ))}
         </div> */}
 
+        <MessageBoard pageId="thoughts" />
       </div>
     </div>
   );

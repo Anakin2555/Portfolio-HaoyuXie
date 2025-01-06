@@ -3,6 +3,7 @@ import { projects } from '../data/projects';
 import ProjectCard from '../components/projects/ProjectCard';
 import ProjectFilter from '../components/projects/ProjectFilter';
 import Masonry from 'react-masonry-css';
+import MessageBoard from '../components/layout/MessageBoard';
 
 export default function Projects() {
   const [selectedCategory, setSelectedCategory] = useState('all');
@@ -63,6 +64,9 @@ export default function Projects() {
             <p className="text-gray-600">No projects found in this category.</p>
           </div>
         )}
+
+        <MessageBoard pageId="projects" />
+
       </div>
     </div>
   );
