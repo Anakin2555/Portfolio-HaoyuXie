@@ -12,7 +12,7 @@ export default function BlogCard({ post }: BlogCardProps) {
 
   return (
     <Link 
-      to={`/blog/${post.id}`}
+      to={`/blogs/${post.id}`}
       className={`rounded-xl shadow-lg overflow-hidden ${
         theme === 'dark' ? 'bg-gray-700' : 'bg-white'
       }`}>

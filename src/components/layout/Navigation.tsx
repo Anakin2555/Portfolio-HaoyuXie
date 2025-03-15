@@ -1,15 +1,20 @@
 import { NavLink, useLocation } from 'react-router-dom';
 import { useTheme } from '../../context/ThemeContext';
-
-const navItems = [
-  { path: '/', label: 'Home', exact: true },
-  { path: '/projects', label: 'Project' },
-  { path: '/blog', label: 'Blog' },
-  { path: '/thoughts', label: 'Message' },
-];
+import { useLanguage } from '../../context/LanguageContext';
+import { translations } from '../../data/translations';
 
 export default function Navigation() {
   const { theme } = useTheme();
+  const { language } = useLanguage();
+  const t = translations[language];
+
+  const navItems = [
+    { path: '/', label: t.nav.home },
+    { path: '/projects', label: t.nav.projects },
+    { path: '/blogs', label: t.nav.blogs },
+    { path: '/about', label: t.nav.about },
+  ];
+
   const location = useLocation();
 
   // Calculate the position and width for the active background
@@ -52,7 +57,7 @@ export default function Navigation() {
                   : location.pathname.startsWith(item.path);  // 其他页面前缀匹配
 
                 return `
-                  relative z-10 flex justify-center w-24 px-6 py-1.5 text-sm font-medium transition-colors duration-200 
+                  relative z-10 flex justify-center w-24 px-6 py-1.5 text-sm font-bold transition-colors duration-200 
                   ${theme === 'dark'
                     ? isPathActive
                       ? 'text-white'

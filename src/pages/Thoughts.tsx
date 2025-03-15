@@ -1,14 +1,22 @@
 import { useState,useEffect, useRef } from 'react';
 // import Masonry from 'react-masonry-css';
-import { thoughts } from '../data/thoughts';
+// import { thoughts } from '../data/thoughts';
 import { ThoughtCard } from '../components/thoughts/ThoughtCard';
-import MessageBoard from '../components/layout/MessageBoard';
-
+// import MessageBoard from '../components/layout/MessageBoard';
+import { Thought } from '../types';
+import ThoughtService from '../services/thoughtService';
+import { useLanguage } from '../context/LanguageContext';
+import { translations } from '../data/translations';
 export default function Thoughts() {
+
+
+  const [thoughts,setThoughts]=useState<Thought[]>([])
   const [expandedId, setExpandedId] = useState<string | null>(null);
   const containerRef = useRef<HTMLDivElement>(null);
   const [columns,setColumns]=useState<number>(0);
   const [columnWidth, setColumnWidth] = useState<number>(0);
+  const {language} = useLanguage();
+  const t = translations[language];
   const breakpointColumns: { [key: number]: number } = {
     1200: 3,
     700: 2,
@@ -18,10 +26,18 @@ export default function Thoughts() {
     setExpandedId(expanded ? id : null);
   };
 
+  // 从服务器获取数据
+  useEffect(()=>{
+    ThoughtService.getThoughts(language).then((thoughts)=>{
+      console.log(thoughts)
+      setThoughts(thoughts)
+    })
+  },[language])
+
+  // 处理窗口大小变化
   const handleResize = () => {
     if (containerRef.current) {
       const width = containerRef.current.clientWidth - 32;
-      let columns = 1; // 默认列数
 
       // 提取并排序断点
       const breakpoints = Object.keys(breakpointColumns).map(Number).sort((a, b) => b - a);
@@ -30,17 +46,15 @@ export default function Thoughts() {
       for (const breakpoint of breakpoints) {          
         if (document.documentElement.clientWidth >= breakpoint) {
           setColumns(breakpointColumns[breakpoint]);
-          columns=breakpointColumns[breakpoint];
+          setColumnWidth(width / breakpointColumns[breakpoint]); // 根据新列数设置列宽
           break;
         }
       }
-      console.log(document.documentElement.clientWidth,columns);
-      
-      setColumnWidth(width / columns); // 根据列数设置列宽
+      console.log(document.documentElement.clientWidth, columns);
     }
   };
 
-  
+  // 监听窗口变化
   useEffect(() => {
     handleResize(); // 初始化列宽
     window.addEventListener('resize', handleResize); // 监听窗口大小变化
@@ -55,13 +69,12 @@ export default function Thoughts() {
       <div className="container mx-auto px-6">
         <header className="mb-12">
           <h1 className="text-4xl font-bold text-gray-900 dark:text-gray-100 mb-4">
-            Thoughts & Musings
+            {t.section.thoughts.title}
           </h1>
           <p className="text-xl text-gray-600 dark:text-gray-400">
-            Personal reflections on technology, career, and life as a developer.
+            {t.section.thoughts.description}
           </p>
         </header>
-
 
 
         {/* 1. Masonry 库实现瀑布流 */}
@@ -105,7 +118,7 @@ export default function Thoughts() {
           ))}
         </div> */}
 
-        <MessageBoard pageId="thoughts" />
+        {/* <MessageBoard pageId="thoughts" /> */}
       </div>
     </div>
   );

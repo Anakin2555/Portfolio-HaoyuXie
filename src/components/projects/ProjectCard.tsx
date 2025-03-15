@@ -4,23 +4,26 @@ import { useTheme } from '../../context/ThemeContext';
 import { Link } from 'react-router-dom';
 
 interface ProjectCardProps {
-  project: Project;
+  project: Project;   
+  type: 'home' | 'projectList';
 }
 
-export default function ProjectCard({ project }: ProjectCardProps) {
+export default function ProjectCard({ project, type }: ProjectCardProps) {
   const { theme } = useTheme();
 
   return (
-    <Link to={`/projects/${project.id}`} className="block">
-      <div className={`w-full rounded-xl shadow-fuchsia-700 overflow-hidden ${
-        theme === 'dark' ? 'bg-gray-700' : 'bg-gray-100'
-      }`}>
+    <Link to={`/projects/${project.id}`} className="block w-full">
+      <div className={`relative w-full rounded-xl shadow-fuchsia-700 overflow-hidden group ${
+        theme === 'dark' ? 'bg-gray-700' : 'bg-gray-100'}`}>
         <img
-          src={project.image}
+          src={`https://raw.githubusercontent.com/anakin2555/pic/master/img/${project.image}`}
           alt={project.title}
-          className="w-full h-auto"
+          className={`object-cover object-top w-full ${type === 'home' ? 'h-[500px]' : ''} `}
         />
-        <div className="p-6">
+        <div className={`w-full p-6 ${
+          type === 'home' 
+            ? 'absolute bottom-0 backdrop-blur-lg bg-white bg-opacity-50 transform transition-all duration-500 translate-y-full group-hover:translate-y-0 opacity-0 group-hover:opacity-100 dark:bg-black dark:bg-opacity-50' 
+            : ''}`}>
           <h2 className={`text-xl font-semibold mb-2 ${
             theme === 'dark' ? 'text-white' : 'text-gray-900'
           }`}>
@@ -31,7 +34,7 @@ export default function ProjectCard({ project }: ProjectCardProps) {
           }`}>
             {project.excerpt}
           </p>
-          <div className="flex flex-wrap gap-2 mb-4">
+          <div className="flex flex-wrap gap-2 mb-4 ">
             {project.tags.map((tag) => (
               <span
                 key={tag}

@@ -1,13 +1,16 @@
 import { useEffect, useState, useRef } from 'react';
 import {Github, Mail} from 'lucide-react';
 import { useTheme } from '../../context/ThemeContext';
+import { useLanguage } from '../../context/LanguageContext';
+import { translations } from '../../data/translations';
 import AnimatedText from './AnimatedText';
 import {BilibiliWhite,BilibiliBlack} from '../icon/bilibili';
-import userProfile from '../../assets/img/user-profile.png'
+import userProfile from '../../assets/icon/user-profile.png'
 
 // @ts-ignore
 export default function Hero({scrollToUpdate}) {
   const { theme } = useTheme();
+  const { language } = useLanguage();
   const [isVisible, setIsVisible] = useState(false);
   const canvasRef = useRef<HTMLCanvasElement>(null);
   const animationRef = useRef<number>();
@@ -63,6 +66,8 @@ export default function Hero({scrollToUpdate}) {
   }, [theme]);
   
   
+  const t = translations[language];
+  
   return (
     <section
       className={`min-h-screen relative overflow-hidden ${
@@ -87,7 +92,26 @@ export default function Hero({scrollToUpdate}) {
           <div className={`mb-8 relative transform transition-all duration-1000 ${
             isVisible ? 'translate-y-0 opacity-100' : 'translate-y-10 opacity-0'
           }`}>
-            <div className="w-32 h-32 rounded-full overflow-hidden border-4 border-blue-500 relative z-10 animate-profile-image">
+
+
+            {/* 旋转文字 SVG */}
+            <svg
+                className="absolute left-[-32px] top-[-32px] w-48 h-48 animate-spin-slow"
+                viewBox="0 0 100 100"
+                >
+                <defs>
+                    <path
+                        id="circle"
+                        d="M 50,50 m -37,0 a 37,37 0 1,1 74,0 a 37,37 0 1,1 -74,0"
+                    />
+                </defs>
+                <text className="fill-gray-600 dark:fill-gray-200 text-[6px] font-bold">
+                    <textPath href="#circle">
+                        • WELCOME TO HAOYU XIE'S PORTFOLIO WEBSITE • ENJOY YOUR VISIT •
+                    </textPath>
+                </text>
+            </svg>
+            <div className="w-32 h-32 rounded-full overflow-hidden  relative z-10 animate-profile-image">
               <img
                 src={userProfile}
                 alt="Profile"
@@ -102,7 +126,11 @@ export default function Hero({scrollToUpdate}) {
           }`}>
             
             {/*标题内容*/}
-            <AnimatedText text="Hi👋, I'm Haoyu Xie" delay={50} />
+            <AnimatedText 
+              text={[t.hero.greeting]} 
+              delay={50} 
+              circulate={false}
+            />
             
             
           </h1>
@@ -112,10 +140,10 @@ export default function Hero({scrollToUpdate}) {
           } ${theme === 'dark' ? 'text-gray-300' : 'text-gray-600'}`}>
             
             {/*自我介绍*/}
-            <AnimatedText 
-              text={`A passionate Front-End Developer and UX Designer aspiring to excel as an independent developer⌨️,
-                currently studying software engineering in Chongqing University.`}
-              delay={1}
+            <AnimatedText
+              text={t.hero.description}
+              delay={40}
+              circulate={true}
             />
             
             
@@ -128,17 +156,17 @@ export default function Hero({scrollToUpdate}) {
               {
                 icon: Github,
                 href: 'https://github.com/Anakin2555',
-                label: 'GitHub',
+                label: language === 'en' ? 'GitHub' : 'GitHub主页',
               },
               {
-                icon: theme==='dark'?BilibiliWhite:BilibiliBlack,
+                icon: theme === 'dark' ? BilibiliWhite : BilibiliBlack,
                 href: 'https://space.bilibili.com/430103599?spm_id_from=333.1007.0.0',
-                label: 'Bilibili',
+                label: language === 'en' ? 'Bilibili' : '哔哩哔哩主页',
               },
               {
                 icon: Mail,
                 href: 'mailto:919673126@qq.com',
-                label: 'Email',
+                label: language === 'en' ? 'Email' : '邮箱',
               },
             ].map(({ icon: Icon, href, label }, index) => (
               <a
@@ -168,7 +196,7 @@ export default function Hero({scrollToUpdate}) {
           }`}>
             <a
               onClick={scrollToUpdate}
-              aria-label="Scroll to projects"
+              aria-label={language === 'en' ? 'Scroll to projects' : '滚动到项目部分'}
               className="inline-block cursor-pointer"
             >
               <svg

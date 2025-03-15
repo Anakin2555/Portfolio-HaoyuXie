@@ -1,7 +1,7 @@
 import { useState, useRef, useEffect } from 'react';
 import { Play, Pause } from 'lucide-react';
 import { useTheme } from '../context/ThemeContext';
-import musicFile from '../assets/music/Moon.mp3';
+import musicFile from '../assets/music/Hot Blooded.mp3';
 
 export default function MusicPlayer() {
   const [isPlaying, setIsPlaying] = useState(false);
@@ -11,9 +11,14 @@ export default function MusicPlayer() {
   const canvasRef = useRef<HTMLCanvasElement | null>(null);
   const animationRef = useRef<number>();
   const { theme } = useTheme();
+  const [currentTrackIndex, setCurrentTrackIndex] = useState(0);
+  const [isEnded, setIsEnded] = useState(false);
 
+  const musicFiles = [musicFile];
+
+  // 初始化音频上下文
   useEffect(() => {
-    const audio = new Audio(musicFile);
+    let audio = new Audio(musicFiles[currentTrackIndex]);
     audioRef.current = audio;
     const context = new AudioContext();
     const source = context.createMediaElementSource(audio);
@@ -24,6 +29,18 @@ export default function MusicPlayer() {
     
     setAudioContext(context);
     setAnalyser(analyserNode);
+
+    // 处理音频结束事件
+    const handleEnded = () => {
+      setIsPlaying(false); // 先停止播放状态
+      setCurrentTrackIndex(prev => (prev + 1) % musicFiles.length);
+      setIsEnded(true);
+      
+      // 重新添加事件监听，等待用户交互
+      document.addEventListener('click', handleInteraction);
+      document.addEventListener('scroll', handleInteraction);
+      document.addEventListener('touchstart', handleInteraction);
+    };
 
     const startPlayback = async () => {
       try {
@@ -51,7 +68,6 @@ export default function MusicPlayer() {
       }
     };
 
-    // 监听用户交互
     const handleInteraction = () => {
       startPlayback();
       // 移除事件监听
@@ -60,10 +76,13 @@ export default function MusicPlayer() {
       document.removeEventListener('touchstart', handleInteraction);
     };
 
-    // 添加事件监听
+    // 初始添加事件监听
     document.addEventListener('click', handleInteraction);
     document.addEventListener('scroll', handleInteraction);
     document.addEventListener('touchstart', handleInteraction);
+
+    // 添加音频结束事件监听
+    audio.addEventListener('ended', handleEnded);
 
     return () => {
       // 清理事件监听
@@ -74,11 +93,14 @@ export default function MusicPlayer() {
       if (animationRef.current) {
         cancelAnimationFrame(animationRef.current);
       }
+      audio.removeEventListener('ended', handleEnded);
       context.close();
       audio.remove();
     };
-  }, []);
+  }, [isEnded]); 
 
+
+  
   // 监听主题变化
   useEffect(() => {
     // 只要有 analyser 和 canvas 就重新绘制，不管是否正在播放
@@ -92,6 +114,9 @@ export default function MusicPlayer() {
     }
   }, [theme]);
 
+
+
+  // 绘制频谱图
   const drawSpectrumWithAnalyser = (analyserNode: AnalyserNode) => {
     if (!canvasRef.current) return;
     
@@ -104,7 +129,7 @@ export default function MusicPlayer() {
     
     const draw = () => {
       animationRef.current = requestAnimationFrame(draw);
-      analyserNode.getByteFrequencyData(dataArray);
+      analyserNode.getByteFrequencyData(dataArray); 
       
       ctx.clearRect(0, 0, canvas.width, canvas.height);
       
@@ -126,6 +151,9 @@ export default function MusicPlayer() {
     draw();
   };
 
+
+
+  // 切换播放状态
   const togglePlay = async () => {
     if (!audioRef.current || !audioContext) return;
 
