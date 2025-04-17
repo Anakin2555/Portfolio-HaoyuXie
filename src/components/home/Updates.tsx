@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import {useTheme} from "../../context/ThemeContext.tsx";
 import { Update } from "../../types/index.ts";   
 import { useLanguage } from "../../context/LanguageContext.tsx";
-
+import { API_URL } from "../../api/api";
 export default function Updates(props:any){
     
     const {theme} = useTheme();
@@ -12,7 +12,7 @@ export default function Updates(props:any){
     // 获取所有更新
     const fetchUpdates = async () => {
         try {
-            const response = await fetch(`http://localhost:3001/api/updates?lang=${language}`);
+            const response = await fetch(`${API_URL}/updates?lang=${language}`);
             if (!response.ok) {
                 throw new Error('Failed to fetch updates');
             }
