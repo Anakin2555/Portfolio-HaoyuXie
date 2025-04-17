@@ -1,6 +1,5 @@
 import { Project } from "../types";
-
-const API_URL = 'http://localhost:3001/api';
+import { API_URL } from "../api/api";
 
 class ProjectService {
   static async getProjects(language: string): Promise<Project[]> {

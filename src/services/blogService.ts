@@ -1,7 +1,5 @@
 import { BlogPost } from "../types";
-
-
-const API_URL = 'http://localhost:3001/api';
+import { API_URL } from "../api/api";
 
 class BlogService {
   static async getBlogPosts(language: string): Promise<BlogPost[]> {

@@ -1,6 +1,5 @@
 import type { Profile } from "../types";
-
-const API_URL = 'http://localhost:3001/api';
+import { API_URL } from "../api/api";
 
 class ProfileService {
   static async getProfile(language: string): Promise<Profile> {

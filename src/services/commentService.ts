@@ -1,7 +1,6 @@
 import DOMPurify from 'dompurify';
 import { Comment } from '../types';
-
-const API_URL = 'http://localhost:3001/api';
+import { API_URL } from '../api/api';
 
 class CommentService {
   private static commentCache = new Map<string, number[]>(); // 存储访客评论时间戳

@@ -1,6 +1,5 @@
 import { Thought } from "../types";
-
-const API_URL = 'http://localhost:3001/api';
+import { API_URL } from "../api/api";
 
 class ThoughtService {
   static async getThoughts(language: string): Promise<Thought[]> {
