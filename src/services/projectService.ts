@@ -4,7 +4,12 @@ import { API_URL } from "../api/api";
 class ProjectService {
   static async getProjects(language: string): Promise<Project[]> {
     try {
-      const response = await fetch(`${API_URL}/projects?lang=${language}`);
+      const response = await fetch(`${API_URL}/projects?lang=${language}`, {
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        mode: 'cors',
+      });
       if (!response.ok) {
         throw new Error(`HTTP error! status: ${response.status}`);
       }

@@ -4,7 +4,12 @@ import { API_URL } from "../api/api";
 class ThoughtService {
   static async getThoughts(language: string): Promise<Thought[]> {
     try {
-      const response = await fetch(`${API_URL}/thoughts/?lang=${language}`);
+      const response = await fetch(`${API_URL}/thoughts/?lang=${language}`, {
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        mode: 'cors',
+      });
       if (!response.ok) {
         throw new Error(`HTTP error! status: ${response.status}`);
       }

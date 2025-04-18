@@ -72,7 +72,12 @@ class CommentService {
   }
 
   static async getComments(pageId: string): Promise<Comment[]> {
-    const response = await fetch(`${API_URL}/comments/${pageId}`);
+    const response = await fetch(`${API_URL}/comments/${pageId}`, {
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      mode: 'cors',
+    });
     return response.json();
   }
 

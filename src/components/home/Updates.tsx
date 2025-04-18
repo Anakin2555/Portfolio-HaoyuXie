@@ -12,7 +12,12 @@ export default function Updates(props:any){
     // 获取所有更新
     const fetchUpdates = async () => {
         try {
-            const response = await fetch(`${API_URL}/updates?lang=${language}`);
+            const response = await fetch(`${API_URL}/updates?lang=${language}`, {
+                headers: {
+                  'Content-Type': 'application/json',
+                },
+                mode: 'cors',
+              });
             if (!response.ok) {
                 throw new Error('Failed to fetch updates');
             }

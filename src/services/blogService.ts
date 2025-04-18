@@ -4,7 +4,12 @@ import { API_URL } from "../api/api";
 class BlogService {
   static async getBlogPosts(language: string): Promise<BlogPost[]> {
     try {
-      const response = await fetch(`${API_URL}/blogs/?lang=${language}`);
+      const response = await fetch(`${API_URL}/blogs/?lang=${language}`, {
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        mode: 'cors',
+      });
       if (!response.ok) {
         throw new Error(`HTTP error! status: ${response.status}`);
       }

@@ -4,7 +4,12 @@ import { API_URL } from "../api/api";
 class ProfileService {
   static async getProfile(language: string): Promise<Profile> {
     try {
-      const response = await fetch(`${API_URL}/profile?lang=${language}`);
+      const response = await fetch(`${API_URL}/profile?lang=${language}`, {
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        mode: 'cors',
+      });
       console.log(response);
 
       if (!response.ok) {
