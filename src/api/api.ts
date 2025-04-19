@@ -75,7 +75,7 @@ const getApiUrl = () => {
     return '/api';
   } else if (storedMode === ApiMode.REMOTE) {
     console.log('使用手动设置的远程 API');
-    return 'https://api.haoyuxie.xyz:3001/api';
+    return 'https://api.haoyuxie.xyz';
   }
 
   // 根据环境自动选择
