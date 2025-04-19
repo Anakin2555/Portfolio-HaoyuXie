@@ -85,12 +85,8 @@ const getApiUrl = () => {
     return 'http://localhost:3001/api';
   } else if (isVercel) {
     // Vercel 生产环境，使用相对路径通过中间件代理
-    console.log('使用 Vercel 代理 API');
-    return '/api';
-  } else {
-    // 其他生产环境，直接连接后端
     console.log('使用生产环境 API');
-    return 'http://118.31.186.204:3001/api';
+    return 'https://api.haoyuxie.xyz/api';
   }
 };
 
