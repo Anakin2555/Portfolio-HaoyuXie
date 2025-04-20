@@ -8,7 +8,7 @@ import Projects from './pages/Projects';
 import Blogs from './pages/Blogs';
 import Detail from './pages/Detail';
 import About from './pages/About';
-import ApiModeSwitcher from './components/ApiModeSwitcher';
+// import ApiModeSwitcher from './components/ApiModeSwitcher';
 
 function App() {
   return (
@@ -28,7 +28,7 @@ function App() {
               </Routes>
             </main>
             <Footer />
-            <ApiModeSwitcher />
+            {/* <ApiModeSwitcher /> */}
           </div>
         </Router>
       </LanguageProvider>

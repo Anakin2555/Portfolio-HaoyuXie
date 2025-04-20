@@ -55,7 +55,7 @@ class VisitorService {
       const deviceId = await this.getDeviceFingerprint();
       
       // 获取IP地址和位置信息   
-      const ipResponse = await fetch('http://ip-api.com/json/');
+      const ipResponse = await fetch('https://ipapi.co/json/');
       const ipData = await ipResponse.json();
       
       const visitor: Visitor = {
