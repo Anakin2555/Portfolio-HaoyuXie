@@ -254,19 +254,24 @@ export default function Header() {
               {/* Admin Dropdown */}
               {currentUser && showDropdown && (
                 <div 
-                  className={`absolute right-0 mt-2 w-48 rounded-md shadow-lg py-1 
-                    ${theme === 'dark' ? 'bg-gray-800' : 'bg-white'} 
-                    ring-1 ring-black ring-opacity-5`}
+                  className={`absolute right-0 w-28 rounded-lg shadow-lg ${
+                    theme === 'dark' 
+                      ? 'bg-gray-800 border border-gray-700' 
+                      : 'bg-white border border-gray-200'
+                  } py-1`}
+                  role="menu"
+                  aria-orientation="vertical"
                 >
                   <button
                     onClick={handleLogout}
-                    className={`block w-full text-left px-4 py-2 text-sm ${
-                      theme === 'dark' 
-                        ? 'text-gray-300 hover:bg-gray-700' 
+                    className={`w-full text-left px-4 py-2 text-sm ${
+                      theme === 'dark'
+                        ? 'text-gray-300 hover:bg-gray-700'
                         : 'text-gray-700 hover:bg-gray-100'
                     }`}
+                    role="menuitem"
                   >
-                    Logout
+                    {language === 'en' ? 'Logout' : '登出'}
                   </button>
                 </div>
               )}
