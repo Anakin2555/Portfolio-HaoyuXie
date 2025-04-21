@@ -2,20 +2,31 @@ import { NavLink, useLocation } from 'react-router-dom';
 import { useTheme } from '../../../context/ThemeContext';
 import { useLanguage } from '../../../context/LanguageContext';
 import { translations } from '../../../data/translations';
+import { useAppSelector } from '../../../store/hooks';
 
 export default function Navigation() {
   const { theme } = useTheme();
   const { language } = useLanguage();
   const t = translations[language];
+  const { currentUser } = useAppSelector((state) => state.user);
 
-  const navItems = [
-    { path: '/', label: t.nav.home },
-    { path: '/projects', label: t.nav.projects },
-    { path: '/blogs', label: t.nav.blogs },
-    { path: '/about', label: t.nav.about },
-  ];
+  const getNavItems = () => {
+    const items = [
+      { path: '/', label: t.nav.home },
+      { path: '/projects', label: t.nav.projects },
+      { path: '/blogs', label: t.nav.blogs },
+      { path: '/about', label: t.nav.about },
+    ];
+
+    if (currentUser) {
+      items.push({ path: '/admin', label: 'Admin' });
+    }
+
+    return items;
+  };
 
   const location = useLocation();
+  const navItems = getNavItems();
 
   // Calculate the position and width for the active background
   const getActiveStyles = () => {
