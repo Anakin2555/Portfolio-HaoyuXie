@@ -15,6 +15,10 @@ export default function Header() {
   const [isScrolled, setIsScrolled] = useState(false);
   const [showLanguageMenu, setShowLanguageMenu] = useState(false);
   const [isLoginModalOpen, setIsLoginModalOpen] = useState(false);
+  const [pressCount, setPressCount] = useState(0);
+  const [showDropdown, setShowDropdown] = useState(false);
+  const pressTimer = useRef<NodeJS.Timeout | null>(null);
+  const lastPressTime = useRef<number>(0);
   
   const dispatch = useAppDispatch();
   const { currentUser, visitorInfo } = useAppSelector((state) => state.user);
@@ -52,9 +56,42 @@ export default function Header() {
     }
   }, [currentUser, dispatch]);
 
-  const handleLogin = () => {
-    setIsLoginModalOpen(true);
+  const handlePressStart = () => {
+    if (currentUser) return; // 已登录不触发
+
+    pressTimer.current = setTimeout(() => {
+      const now = Date.now();
+      if (lastPressTime.current && (now - lastPressTime.current) < 2000) {
+        setPressCount(prev => prev + 1);
+        if (pressCount === 1) {
+          setIsLoginModalOpen(true);
+          setPressCount(0);
+        }
+      } else {
+        setPressCount(1);
+      }
+      lastPressTime.current = now;
+    }, 1000);
   };
+
+  const handlePressEnd = () => {
+    if (pressTimer.current) {
+      clearTimeout(pressTimer.current);
+    }
+  };
+
+  // 清理定时器
+  useEffect(() => {
+    const resetTimer = setTimeout(() => {
+      setPressCount(0);
+    }, 2000);
+
+    return () => clearTimeout(resetTimer);
+  }, [pressCount]);
+
+  // const handleLogin = () => {
+  //   setIsLoginModalOpen(true);
+  // };
 
   const handleLogout = () => {
     dispatch(logoutAdmin());
@@ -162,34 +199,75 @@ export default function Header() {
             </button>
 
             {/* User Profile Section */}
-            <div className="relative">
-              {currentUser ? (
-                // Admin user profile
-                <div className="flex items-center gap-2">
-                  <img
-                    src={userProfile}
-                    alt="Admin Profile"
-                    className="w-8 h-8 rounded-full cursor-pointer"
-                    onClick={handleLogout}
-                    title="Click to logout"
-                  />
-                </div>
-              ) : (
-                // Visitor profile
+            <div 
+              className="relative"
+              onMouseEnter={() => currentUser && setShowDropdown(true)}
+              onMouseLeave={() => setShowDropdown(false)}
+            >
+              <div 
+                className={`flex items-center gap-2 px-3 py-1.5 rounded-full transition-all ${
+                  theme === 'dark' 
+                    ? 'bg-gray-800 hover:bg-gray-700' 
+                    : 'bg-gray-100 hover:bg-gray-200'
+                }`}
+                onMouseDown={handlePressStart}
+                onMouseUp={handlePressEnd}
+                onMouseLeave={handlePressEnd}
+                onTouchStart={handlePressStart}
+                onTouchEnd={handlePressEnd}
+              >
+                {currentUser ? (
+                  <>
+                    <img
+                      src={userProfile}
+                      alt="Admin"
+                      className="w-6 h-6 rounded-full"
+                    />
+                    <span className={`text-sm font-medium ${
+                      theme === 'dark' ? 'text-gray-300' : 'text-gray-700'
+                    }`}>
+                      Admin
+                    </span>
+                  </>
+                ) : (
+                  <>
+                    <svg 
+                      className={`w-5 h-5 ${
+                        theme === 'dark' ? 'text-gray-400' : 'text-gray-500'
+                      }`}
+                      fill="currentColor"
+                      viewBox="0 0 1024 1024"
+                    >
+                      <path d="M512.010745 1022.082324c-282.335297 0-511.220241-228.798986-511.220241-511.036046C0.790504 228.798986 229.675448 0 512.010745 0c282.312784 0 511.198751 228.798986 511.198751 511.046279C1023.208473 793.285385 794.322505 1022.082324 512.010745 1022.082324zM512.010745 95.826486c-229.385341 0-415.371242 185.884594-415.371242 415.220816 0 107.22714 41.021276 204.6551 107.802238 278.339286 60.140729-29.092595 38.062897-4.88424 116.77254-37.274952 80.539314-33.089629 99.610672-44.639686 99.610672-44.639686l0.776689-76.29464c0 0-30.169113-22.890336-39.543621-94.683453-18.895349 5.426593-25.108864-21.988804-26.237571-39.429011-1.001817-16.863063-10.926864-69.487607 12.105712-64.739467-4.714372-35.144428-8.094352-66.844407-6.417153-83.633792 5.763261-58.938344 62.97324-120.518864 151.105486-125.017318 103.665011 4.486174 144.737452 66.028832 150.500713 124.9682 1.680269 16.800641-2.028193 48.511877-6.739495 83.594907 23.025413-4.686742 13.028735 47.861054 11.901051 64.726164-1.028423 17.440208-7.394411 44.756343-26.208918 39.34203-9.42158 71.79107-39.593763 94.498234-39.593763 94.498234l0.725524 75.924203c0 0 19.070334 10.788717 99.609649 43.892673 78.70862 32.387641 56.605206 9.609869 116.77561 38.765909 66.75231-73.686233 107.772562-171.101913 107.772562-278.339286C927.356404 281.712103 741.398132 95.826486 512.010745 95.826486z" />
+                    </svg>
+                    {visitorInfo && (
+                      <span className={`text-sm ${
+                        theme === 'dark' ? 'text-gray-400' : 'text-gray-500'
+                      }`}>
+                        {visitorInfo.name}
+                      </span>
+                    )}
+                  </>
+                )}
+              </div>
+
+              {/* Admin Dropdown */}
+              {currentUser && showDropdown && (
                 <div 
-                  className="cursor-pointer" 
-                  onClick={handleLogin}
-                  title="Click to login as admin"
+                  className={`absolute right-0 mt-2 w-48 rounded-md shadow-lg py-1 
+                    ${theme === 'dark' ? 'bg-gray-800' : 'bg-white'} 
+                    ring-1 ring-black ring-opacity-5`}
                 >
-                  <svg 
-                    className="w-5 h-5 text-gray-500" 
-                    fill="currentColor"  // 使用 currentColor 继承父元素颜色
-                    viewBox="0 0 1024 1024" 
-                    version="1.1" 
-                    xmlns="http://www.w3.org/2000/svg"
+                  <button
+                    onClick={handleLogout}
+                    className={`block w-full text-left px-4 py-2 text-sm ${
+                      theme === 'dark' 
+                        ? 'text-gray-300 hover:bg-gray-700' 
+                        : 'text-gray-700 hover:bg-gray-100'
+                    }`}
                   >
-                    <path d="M512.010745 1022.082324c-282.335297 0-511.220241-228.798986-511.220241-511.036046C0.790504 228.798986 229.675448 0 512.010745 0c282.312784 0 511.198751 228.798986 511.198751 511.046279C1023.208473 793.285385 794.322505 1022.082324 512.010745 1022.082324zM512.010745 95.826486c-229.385341 0-415.371242 185.884594-415.371242 415.220816 0 107.22714 41.021276 204.6551 107.802238 278.339286 60.140729-29.092595 38.062897-4.88424 116.77254-37.274952 80.539314-33.089629 99.610672-44.639686 99.610672-44.639686l0.776689-76.29464c0 0-30.169113-22.890336-39.543621-94.683453-18.895349 5.426593-25.108864-21.988804-26.237571-39.429011-1.001817-16.863063-10.926864-69.487607 12.105712-64.739467-4.714372-35.144428-8.094352-66.844407-6.417153-83.633792 5.763261-58.938344 62.97324-120.518864 151.105486-125.017318 103.665011 4.486174 144.737452 66.028832 150.500713 124.9682 1.680269 16.800641-2.028193 48.511877-6.739495 83.594907 23.025413-4.686742 13.028735 47.861054 11.901051 64.726164-1.028423 17.440208-7.394411 44.756343-26.208918 39.34203-9.42158 71.79107-39.593763 94.498234-39.593763 94.498234l0.725524 75.924203c0 0 19.070334 10.788717 99.609649 43.892673 78.70862 32.387641 56.605206 9.609869 116.77561 38.765909 66.75231-73.686233 107.772562-171.101913 107.772562-278.339286C927.356404 281.712103 741.398132 95.826486 512.010745 95.826486z" />
-                  </svg>
+                    Logout
+                  </button>
                 </div>
               )}
             </div>

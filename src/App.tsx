@@ -13,6 +13,7 @@ import { auth0Config } from './config/auth0';
 import { useEffect } from 'react';
 import { useAppDispatch } from './store/hooks';
 import { setAdminUser } from './store/slices/userSlice';
+import Admin from './pages/Admin';
 // import ApiModeSwitcher from './components/ApiModeSwitcher';
 
 // 回调处理组件
@@ -47,6 +48,7 @@ const AuthCallback = () => {
     </div>
   );
 };
+
 function App() {
   return (
     <Auth0Provider {...auth0Config}>
@@ -64,6 +66,12 @@ function App() {
                   <Route path="/about" element={<About />} />
                   <Route path="/projects/:id" element={<Detail />} />
                   <Route path="/callback" element={<AuthCallback />} />
+                  <Route 
+                    path="/admin" 
+                    element={
+                        <Admin />
+                    } 
+                  />
                 </Routes>
               </main>
               <Footer />
