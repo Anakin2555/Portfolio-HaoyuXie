@@ -10,6 +10,18 @@ import ReactMarkdown from 'react-markdown';
 import projectService from '../services/projectService';
 import BlogService from '../services/blogService';
 import { useLanguage } from '../context/LanguageContext';
+import { Prism as SyntaxHighlighter } from 'react-syntax-highlighter'
+import { vscDarkPlus } from 'react-syntax-highlighter/dist/esm/styles/prism'
+import remarkGfm from 'remark-gfm'  // GitHub Flavored Markdown
+import rehypeRaw from 'rehype-raw'  // 支持内联HTML
+import remarkMath from 'remark-math' // 数学公式支持
+import rehypeKatex from 'rehype-katex' // 数学公式渲染
+
+// Add type definition for code component props
+interface CodeProps extends React.ComponentPropsWithoutRef<'code'> {
+  inline?: boolean;
+  node?: any;
+}
 
 export default function Detail() {
   const { id } = useParams<{ id: string }>();
@@ -115,15 +127,78 @@ export default function Detail() {
           <div className={
             theme === 'dark' ? 'text-gray-300' : 'text-gray-600'
           }>
-            {type === 'blogs' ? 
-              (item as BlogPost).content.split('\n\n').map((paragraph: string, index: number) => (
-                <React.Fragment key={index}>
-                  {paragraph}
-                  <br />
-                  <br />
-                </React.Fragment>
-              )) : 
-              <ReactMarkdown>
+            {
+              // type === 'blogs' ? 
+              // (item as BlogPost).content.split('\n\n').map((paragraph: string, index: number) => (
+              //   <React.Fragment key={index}>
+              //     {paragraph}
+              //     <br />
+              //     <br />
+              //   </React.Fragment>
+              // )) : 
+              <ReactMarkdown
+                remarkPlugins={[remarkGfm, remarkMath]}
+                rehypePlugins={[rehypeRaw, rehypeKatex]}
+                components={{
+                  // 代码块渲染
+                  code({ node, inline, className, children, ...props }: CodeProps) {
+                    const match = /language-(\w+)/.exec(className || '')
+                    const code = String(children).replace(/\n$/, '')
+
+                    return !inline && match ? (
+                      <div className="relative">
+                        {/* 代码语言标签 */}
+                        <div className="absolute right-2 top-2 text-xs text-gray-400">
+                          {match[1]}
+                        </div>
+                        
+                        {/* 复制按钮 */}
+                        <button
+                          onClick={() => navigator.clipboard.writeText(code)}
+                          className="absolute right-2 top-8 p-1 text-xs bg-gray-700 rounded hover:bg-gray-600"
+                        >
+                          Copy
+                        </button>
+
+                        <SyntaxHighlighter
+                          style={vscDarkPlus}
+                          language={match[1]}
+                          PreTag="div"
+                          className="rounded-lg !bg-gray-800"
+                          showLineNumbers={true}
+                          wrapLines={true}
+                          {...props}
+                        >
+                          {code}
+                        </SyntaxHighlighter>
+                      </div>
+                    ) : (
+                      <code className={`${className} bg-gray-100 rounded px-1`} {...props}>
+                        {children}
+                      </code>
+                    )
+                  },
+                  // 图片渲染优化
+                  img({ node, ...props }) {
+                    return (
+                      <img
+                        {...props}
+                        className="rounded-lg max-w-full h-auto my-4"
+                        loading="lazy"
+                        alt={props.alt || ''}
+                      />
+                    )
+                  },
+                  // 标题渲染
+                  h1: ({ node, ...props }) => <h1 className="text-3xl font-bold my-4" {...props} />,
+                  h2: ({ node, ...props }) => <h2 className="text-2xl font-bold my-3" {...props} />,
+                  h3: ({ node, ...props }) => <h3 className="text-xl font-bold my-2" {...props} />,
+                  // 引用块样式
+                  blockquote: ({ node, ...props }) => (
+                    <blockquote className="border-l-4 border-gray-300 pl-4 my-4 italic" {...props} />
+                  ),
+                }}
+              >
                 {(item as Project).content}
               </ReactMarkdown>
             }

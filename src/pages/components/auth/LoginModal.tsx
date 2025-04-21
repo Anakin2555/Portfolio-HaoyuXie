@@ -16,7 +16,7 @@ const LoginModal: React.FC<LoginModalProps> = ({ isOpen, onClose, onSuccess }) =
   const [isVisible, setIsVisible] = useState(false);
   // const dispatch = useAppDispatch();
   // const { loading, error } = useAppSelector(state => state.user);
-  const { theme, toggleTheme } = useTheme();
+  const { theme } = useTheme();
   const { loginWithRedirect, user, isAuthenticated } = useAuth0();
 
   // Handle body scroll lock and modal visibility
