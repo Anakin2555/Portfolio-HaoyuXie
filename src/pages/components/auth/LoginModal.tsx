@@ -39,7 +39,7 @@ const LoginModal: React.FC<LoginModalProps> = ({ isOpen, onClose, onSuccess }) =
       // 添加延迟显示
       const timer = setTimeout(() => {
         setIsVisible(true);
-      }, 600);
+      }, 400);
 
       return () => {
         // 清理定时器

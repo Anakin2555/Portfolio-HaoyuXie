@@ -8,28 +8,46 @@ import Projects from './pages/Projects';
 import Blogs from './pages/Blogs';
 import Detail from './pages/Detail';
 import About from './pages/About';
-import { Auth0Provider } from '@auth0/auth0-react';
+import { Auth0Provider, useAuth0 } from '@auth0/auth0-react';
 import { auth0Config } from './config/auth0';
 import { useEffect } from 'react';
+import { useAppDispatch } from './store/hooks';
+import { setAdminUser } from './store/slices/userSlice';
 // import ApiModeSwitcher from './components/ApiModeSwitcher';
 
 // 回调处理组件
 const AuthCallback = () => {
   const navigate = useNavigate();
-  
+  const dispatch = useAppDispatch();
+  const { user, isAuthenticated, isLoading } = useAuth0();
+
   useEffect(() => {
-    // 处理完认证后重定向到首页或其他页面
-    navigate('/');
-  }, []);
+    if (!isLoading && isAuthenticated && user) {
+      // 尝试设置管理员用户
+      dispatch(setAdminUser(user))
+        .unwrap()
+        .then(() => {
+          // 成功设置管理员，跳转到管理页面
+          navigate('/admin');
+        })
+        .catch((error) => {
+          // 未授权用户，返回首页
+          console.error('Authentication failed:', error);
+          navigate('/');
+        });
+    }
+  }, [isLoading, isAuthenticated, user, dispatch, navigate]);
 
-  return <div>Authenticating...</div>;
+  return (
+    <div className="flex items-center justify-center min-h-screen">
+      <div className="text-center">
+        <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-blue-500 mx-auto"></div>
+        <p className="mt-4 text-gray-600">Authenticating...</p>
+      </div>
+    </div>
+  );
 };
-
 function App() {
-  // 在登录前打印实际使用的 redirect_uri
-  console.log('Current origin:', window.location.origin);
-  console.log('Redirect URI:', auth0Config.authorizationParams.redirect_uri);
-
   return (
     <Auth0Provider {...auth0Config}>
       <ThemeProvider>
