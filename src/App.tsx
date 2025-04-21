@@ -26,6 +26,10 @@ const AuthCallback = () => {
 };
 
 function App() {
+  // 在登录前打印实际使用的 redirect_uri
+  console.log('Current origin:', window.location.origin);
+  console.log('Redirect URI:', auth0Config.authorizationParams.redirect_uri);
+
   return (
     <Auth0Provider {...auth0Config}>
       <ThemeProvider>
