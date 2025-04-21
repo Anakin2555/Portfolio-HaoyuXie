@@ -1,5 +1,5 @@
 // import * as Icons from 'lucide-react';
-import { Thought } from '../../types';
+import { Thought } from '../../../types';
 // import { LucideIcon } from 'lucide-react';
 import { useEffect, useRef, useState } from 'react';
 

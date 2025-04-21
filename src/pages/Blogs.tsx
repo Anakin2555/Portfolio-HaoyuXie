@@ -1,7 +1,7 @@
 import { useState, useMemo, useEffect } from 'react';
-import BlogCard from '../components/blog/BlogCard';
-import BlogSearch from '../components/blog/BlogSearch';
-import MessageBoard from '../components/layout/MessageBoard';
+import BlogCard from './components/blog/BlogCard';
+import BlogSearch from './components/blog/BlogSearch';
+import MessageBoard from './components/layout/MessageBoard';
 import BlogService from '../services/blogService';
 import { BlogPost } from '../types';
 import Thoughts from './Thoughts';

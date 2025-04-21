@@ -1,9 +1,9 @@
 import { useState, useMemo, useEffect } from 'react';
 // import { projects } from '../data/projects';
-import ProjectCard from '../components/projects/ProjectCard';
-import ProjectFilter from '../components/projects/ProjectFilter';
+import ProjectCard from './components/projects/ProjectCard';
+import ProjectFilter from './components/projects/ProjectFilter';
 import Masonry from 'react-masonry-css';
-import MessageBoard from '../components/layout/MessageBoard';
+import MessageBoard from './components/layout/MessageBoard';
 import projectService from '../services/projectService';
 import { Project } from '../types';
 import { useLanguage } from '../context/LanguageContext';

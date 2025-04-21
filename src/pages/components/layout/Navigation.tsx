@@ -1,7 +1,7 @@
 import { NavLink, useLocation } from 'react-router-dom';
-import { useTheme } from '../../context/ThemeContext';
-import { useLanguage } from '../../context/LanguageContext';
-import { translations } from '../../data/translations';
+import { useTheme } from '../../../context/ThemeContext';
+import { useLanguage } from '../../../context/LanguageContext';
+import { translations } from '../../../data/translations';
 
 export default function Navigation() {
   const { theme } = useTheme();

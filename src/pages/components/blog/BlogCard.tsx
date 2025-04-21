@@ -1,7 +1,7 @@
 import { Link } from 'react-router-dom';
 import { Clock } from 'lucide-react';
-import { BlogPost } from '../../types';
-import { useTheme } from '../../context/ThemeContext';
+import { BlogPost } from '../../../types';
+import { useTheme } from '../../../context/ThemeContext';
 
 interface BlogCardProps {
   post: BlogPost;

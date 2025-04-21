@@ -1,10 +1,10 @@
 import { useState, useEffect } from 'react';
 import { MessageCircle, Send, Reply } from 'lucide-react';
-import { Comment, Visitor } from '../../types';
-import CommentService from '../../services/commentService';
-import VisitorService from '../../services/visitorService';
-import { useLanguage } from '../../context/LanguageContext';
-import { translations } from '../../data/translations';
+import { Comment, Visitor } from '../../../types';
+import CommentService from '../../../services/commentService';
+import VisitorService from '../../../services/visitorService';
+import { useLanguage } from '../../../context/LanguageContext';
+import { translations } from '../../../data/translations';
 
 export default function MessageBoard({ pageId }: { pageId: string }) {
   const [comments, setComments] = useState<Comment[]>([]);

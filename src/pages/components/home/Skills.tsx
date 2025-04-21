@@ -1,8 +1,8 @@
 import { useEffect, useState } from 'react';
-import { useTheme } from '../../context/ThemeContext';
-import type { Skill } from '../../types';
-import profileService from '../../services/profileService';
-import { useLanguage } from '../../context/LanguageContext';
+import { useTheme } from '../../../context/ThemeContext';
+import type { Skill } from '../../../types';
+import profileService from '../../../services/profileService';
+import { useLanguage } from '../../../context/LanguageContext';
 
 
 export default function Skills(props:any) {

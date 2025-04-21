@@ -1,7 +1,7 @@
 import { useState,useEffect, useRef } from 'react';
 // import Masonry from 'react-masonry-css';
 // import { thoughts } from '../data/thoughts';
-import { ThoughtCard } from '../components/thoughts/ThoughtCard';
+import { ThoughtCard } from './components/thoughts/ThoughtCard';
 // import MessageBoard from '../components/layout/MessageBoard';
 import { Thought } from '../types';
 import ThoughtService from '../services/thoughtService';

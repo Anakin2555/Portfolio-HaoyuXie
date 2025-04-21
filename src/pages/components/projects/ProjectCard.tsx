@@ -1,6 +1,6 @@
 import { ExternalLink, Github } from 'lucide-react';
-import { Project } from '../../types';
-import { useTheme } from '../../context/ThemeContext';
+import { Project } from '../../../types';
+import { useTheme } from '../../../context/ThemeContext';
 import { Link } from 'react-router-dom';
 
 interface ProjectCardProps {

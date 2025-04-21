@@ -1,5 +1,5 @@
 import { Search } from 'lucide-react';
-import { useTheme } from '../../context/ThemeContext';
+import { useTheme } from '../../../context/ThemeContext';
 
 interface BlogSearchProps {
   searchQuery: string;

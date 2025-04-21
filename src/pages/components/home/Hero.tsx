@@ -1,8 +1,8 @@
 import { useEffect, useState, useRef } from 'react';
 import {Github, Mail} from 'lucide-react';
-import { useTheme } from '../../context/ThemeContext';
-import { useLanguage } from '../../context/LanguageContext';
-import { translations } from '../../data/translations';
+import { useTheme } from '../../../context/ThemeContext';
+import { useLanguage } from '../../../context/LanguageContext';
+import { translations } from '../../../data/translations';
 import AnimatedText from './AnimatedText';
 import {BilibiliWhite,BilibiliBlack} from '../icon/bilibili';
 import userProfile from '../../assets/icon/user-profile.png'

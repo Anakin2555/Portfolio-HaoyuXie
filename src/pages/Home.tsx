@@ -1,11 +1,11 @@
-import Hero from '../components/home/Hero';
-import Skills from '../components/home/Skills';
-import ProjectCard from '../components/projects/ProjectCard';
-import BlogCard from '../components/blog/BlogCard';
+import Hero from './components/home/Hero.tsx';
+import Skills from './components/home/Skills.tsx';
+import ProjectCard from './components/projects/ProjectCard.tsx';
+import BlogCard from './components/blog/BlogCard.tsx';
 import { useTheme } from '../context/ThemeContext';
 import {useNavigate} from "react-router-dom";
-import Updates from "../components/home/Updates.tsx";
-import MessageBoard from '../components/layout/MessageBoard.tsx';
+import Updates from "./components/home/Updates.tsx";
+import MessageBoard from './components/layout/MessageBoard.tsx';
 import { useEffect, useState } from 'react';
 import projectService from '../services/projectService.ts';
 import { Project, BlogPost } from '../types/index.ts';

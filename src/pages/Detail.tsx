@@ -4,7 +4,7 @@ import { ArrowLeft, Clock } from 'lucide-react';
 import { useTheme } from '../context/ThemeContext';
 // import { blogPosts } from '../data/blog-posts';
 // import { projects } from '../data/projects';
-import MessageBoard from '../components/layout/MessageBoard';
+import MessageBoard from './components/layout/MessageBoard';
 import { BlogPost, Project } from '../types';
 import ReactMarkdown from 'react-markdown';
 import projectService from '../services/projectService';

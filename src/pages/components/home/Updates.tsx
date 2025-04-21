@@ -1,8 +1,8 @@
 import { useEffect, useState } from "react";
-import {useTheme} from "../../context/ThemeContext.tsx";
-import { Update } from "../../types/index.ts";   
-import { useLanguage } from "../../context/LanguageContext.tsx";
-import { API_URL } from "../../api/api";
+import {useTheme} from "../../../context/ThemeContext.tsx";
+import { Update } from "../../../types/index.ts";   
+import { useLanguage } from "../../../context/LanguageContext.tsx";
+import { API_URL } from "../../../api/api.ts";
 export default function Updates(props:any){
     
     const {theme} = useTheme();
@@ -66,6 +66,7 @@ export default function Updates(props:any){
 
                         )
                     })}
+                    
                 </div>
 
 
