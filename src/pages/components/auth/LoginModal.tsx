@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
-import { useAppDispatch, useAppSelector } from '../../../store/hooks';
-import { loginAdmin } from '../../../store/slices/userSlice';
+// import { useAppDispatch, useAppSelector } from '../../../store/hooks';
+// import { loginAdmin } from '../../../store/slices/userSlice';
 import { useTheme } from '../../../context/ThemeContext';
 import { useAuth0 } from '@auth0/auth0-react';
 
@@ -11,11 +11,11 @@ interface LoginModalProps {
 }
 
 const LoginModal: React.FC<LoginModalProps> = ({ isOpen, onClose, onSuccess }) => {
-  const [username, setUsername] = useState('');
-  const [password, setPassword] = useState('');
+  // const [username, setUsername] = useState('');
+  // const [password, setPassword] = useState('');
   const [isVisible, setIsVisible] = useState(false);
-  const dispatch = useAppDispatch();
-  const { loading, error } = useAppSelector(state => state.user);
+  // const dispatch = useAppDispatch();
+  // const { loading, error } = useAppSelector(state => state.user);
   const { theme, toggleTheme } = useTheme();
   const { loginWithRedirect, user, isAuthenticated } = useAuth0();
 
@@ -69,17 +69,17 @@ const LoginModal: React.FC<LoginModalProps> = ({ isOpen, onClose, onSuccess }) =
 
   if (!isOpen) return null;
 
-  const handleSubmit = async (e: React.FormEvent) => {
-    e.preventDefault();
-    try {
-      await dispatch(loginAdmin({ username, password })).unwrap();
-      onSuccess();
-      onClose();
-    } catch (err) {
-      // Error handling is now managed by Redux
-      console.error('Login failed:', err);
-    }
-  };
+  // const handleSubmit = async (e: React.FormEvent) => {
+  //   e.preventDefault();
+  //   try {
+  //     await dispatch(loginAdmin({ username, password })).unwrap();
+  //     onSuccess();
+  //     onClose();
+  //   } catch (err) {
+  //     // Error handling is now managed by Redux
+  //     console.error('Login failed:', err);
+  //   }
+  // };
 
   const handleGitHubLogin = () => {
     loginWithRedirect();
@@ -107,7 +107,7 @@ const LoginModal: React.FC<LoginModalProps> = ({ isOpen, onClose, onSuccess }) =
           Admin Login
         </h2>
         
-        <form onSubmit={handleSubmit}>
+        {/* <form onSubmit={handleSubmit}>
           <div className="mb-4">
             <label className={`block text-sm font-bold mb-2
               ${theme === 'dark' ? 'text-gray-300' : 'text-gray-700'}`}>
@@ -170,7 +170,7 @@ const LoginModal: React.FC<LoginModalProps> = ({ isOpen, onClose, onSuccess }) =
               {loading ? 'Logging in...' : 'Login'}
             </button>
           </div>
-        </form>
+        </form> */}
 
         <div className="flex justify-center mt-4">
           <button
