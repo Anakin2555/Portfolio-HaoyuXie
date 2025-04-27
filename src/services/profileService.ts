@@ -1,4 +1,5 @@
 import type { Profile } from "../types";
+import type { ProfileAdmin } from '../types/profileAdmin';
 import { API_URL } from "../api/api";
 
 class ProfileService {
@@ -10,7 +11,6 @@ class ProfileService {
         },
         mode: 'cors',
       });
-      console.log(response);
 
       if (!response.ok) {
         throw new Error(`HTTP error! status: ${response.status}`);
@@ -23,8 +23,9 @@ class ProfileService {
     }
   }
 
-  static async updateProfile(profileData: Partial<Profile>): Promise<Profile> {
+  static async updateProfile(profileData: ProfileAdmin): Promise<ProfileAdmin> {
     try {
+      console.log(JSON.stringify(profileData));
       const response = await fetch(`${API_URL}/profile`, {
         method: 'PATCH',
         headers: {

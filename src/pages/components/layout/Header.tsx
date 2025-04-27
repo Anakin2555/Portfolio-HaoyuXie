@@ -1,7 +1,7 @@
 import { Moon, Sun, Languages } from 'lucide-react';
 import { useEffect, useState, useRef } from 'react';
 import { useTheme } from '../../../context/ThemeContext';
-import MusicPlayer from '../MusicPlayer';
+import MusicPlayer from './MusicPlayer';
 import userProfile from '../../../assets/icon/user-profile.png'
 import Navigation from './Navigation';
 import { useLanguage } from '../../../context/LanguageContext';
