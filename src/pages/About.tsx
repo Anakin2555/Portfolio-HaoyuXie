@@ -88,14 +88,16 @@ export default function About() {
                     {profile.education.map((edu, index) => (
                         <div key={index} className="relative">
                             {/* Education Experience */}
-                            <div className="flex items-center">
+                            <div className="flex items-start mb-12">
                                 <div className="w-1/2 pr-8 text-right">
                                     <h3 className="text-xl font-semibold dark:text-white">{edu.degree}</h3>
                                     <p className="text-gray-800 dark:text-white font-bold">🎓{edu.school}</p>
                                     <p className="text-gray-600 dark:text-gray-400">{edu.department}</p>
                                 </div>
                                 <div className="absolute left-1/2 transform -translate-x-1/2">
+                                    {(edu.school==='四川大学' || edu.school==='Sichuan University') ?
                                     <i className="fc-icon-scu fc-icon-zhong text-gray-800 dark:text-white"></i>
+                                    :<i className="fc-icon-cqu fc-icon-zhong text-gray-800 dark:text-white"></i>}
                                 </div>
 
                                 <div className="w-1/2 pl-10">

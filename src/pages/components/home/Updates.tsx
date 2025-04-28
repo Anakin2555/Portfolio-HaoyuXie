@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import {useTheme} from "../../../context/ThemeContext.tsx";
 import { Update } from "../../../types/index.ts";   
 import { useLanguage } from "../../../context/LanguageContext.tsx";
-import { API_URL } from "../../../api/api.ts";
+import { API_URL } from "../../../utils/api.ts";
 export default function Updates(props:any){
     
     const {theme} = useTheme();
@@ -31,7 +31,10 @@ export default function Updates(props:any){
 
     // 加载数据,切换语言时重新加载
     useEffect(() => {
-        fetchUpdates().then(setUpdateList);
+        fetchUpdates().then((updates)=>{
+            const sortedUpdates = updates.sort((a: Update, b: Update) => new Date(b.date).getTime() - new Date(a.date).getTime());
+            setUpdateList(sortedUpdates);
+        });
     }, [language]);
     
     return(

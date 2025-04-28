@@ -1,5 +1,5 @@
 import { Project } from "../types";
-import { API_URL } from "../api/api";
+import { API_URL } from "../utils/api";
 
 class ProjectService {
   static async getProjects(language: string): Promise<Project[]> {

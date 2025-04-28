@@ -1,5 +1,5 @@
 import { BlogPost } from "../types";
-import { API_URL } from "../api/api";
+import { API_URL } from "../utils/api";
 
 class BlogService {
   static async getBlogPosts(language: string): Promise<BlogPost[]> {

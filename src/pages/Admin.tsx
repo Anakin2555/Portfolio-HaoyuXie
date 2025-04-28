@@ -4,6 +4,10 @@ import { useTheme } from '../hooks/useTheme';
 import Button from 'antd/es/button';
 import Card from 'antd/es/card';
 import ProfileAdminPage from './components/admin/ProfileAdmin';
+import UpdatesAdminPage from './components/admin/UpdatesAdmin';
+import BlogsAdminPage from './components/admin/BlogsAdmin';
+import { Navigate } from 'react-router-dom';
+import EnvUtil from '../utils/envUtil';
 
 type AdminSection = 'profile' | 'updates' | 'projects' | 'blogs' | 'messages';
 
@@ -12,16 +16,21 @@ export default function Admin() {
   const { theme } = useTheme();
   const [currentSection, setCurrentSection] = useState<AdminSection>('profile');
 
+  // 仅在生产环境下验证用户登录状态
+  if (EnvUtil.isProduction() && !currentUser) {
+    return <Navigate to="/" />;
+  }
+
   const renderSection = () => {
     switch (currentSection) {
       case 'profile':
         return <ProfileAdminPage />;
       case 'updates':
-        return <div>Updates Management (Coming Soon)</div>;
+        return <UpdatesAdminPage />;
       case 'projects':
         return <div>Projects Management (Coming Soon)</div>;
       case 'blogs':
-        return <div>Blogs Management (Coming Soon)</div>;
+        return <BlogsAdminPage /> ;
       case 'messages':
         return <div>Message Board Management (Coming Soon)</div>;
       default:

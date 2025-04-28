@@ -1,4 +1,4 @@
-import { API_URL } from '../api/api';
+import { API_URL } from '../utils/api';
 
 export interface AdminUser {
   id: string;

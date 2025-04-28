@@ -1,3 +1,6 @@
+import EnvUtil from '../utils/envUtil';
+
+
 // 定义环境变量类型
 declare global {
   interface Window {
@@ -42,28 +45,18 @@ export const setApiMode = (mode: ApiMode): void => {
 
 // 根据环境动态选择 API URL
 const getApiUrl = () => {
-  // 检查是否是在浏览器环境
-  const isBrowser = typeof window !== 'undefined';
-  
-  // 直接读取 Vite 环境变量
-  const viteEnv = isBrowser ? import.meta.env : null;
-  
-  // 获取环境变量
-  const isDevelopment = viteEnv?.DEV === true || viteEnv?.MODE === 'development' || viteEnv?.VITE_NODE_ENV === 'development';
-  const isVercel = viteEnv?.VITE_VERCEL === '1';
+
+  const isDevelopment = EnvUtil.isDevelopment();
+  const isVercel = EnvUtil.isVercel();
+  const envInfo = EnvUtil.getEnvInfo();
   
   // 检查本地存储中的手动设置
   const storedMode = getStoredApiMode();
   
   // 调试信息
-  console.log('环境变量:', {
-    isDev: isDevelopment,
-    isVercel: isVercel,
-    dev: viteEnv?.DEV,
-    mode: viteEnv?.MODE,
-    nodeEnv: viteEnv?.VITE_NODE_ENV,
-    vercel: viteEnv?.VITE_VERCEL,
-    storedMode
+  console.log('api模式:', {
+    storedMode,
+    envInfo
   });
 
   // 优先使用手动设置的 API 模式

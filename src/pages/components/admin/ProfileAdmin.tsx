@@ -216,7 +216,7 @@ export default function ProfileAdminPage() {
                     </div>
                   </div>
                   <Form.Item className="mt-2">
-                    <Button type="link" danger onClick={() => remove(name)} block>
+                    <Button type="link" danger onClick={() => remove(name)} block className="border border-transparent hover:border-dashed hover:border-red-500">
                       Remove
                     </Button>
                   </Form.Item>
@@ -238,7 +238,7 @@ export default function ProfileAdminPage() {
             <>
               {fields.map(({ key, name, ...restField }) => (
                 <div key={key}>
-                  <div className="grid grid-cols-3 gap-4">
+                  <div className="grid grid-cols-4 gap-4">
                     <Form.Item
                       {...restField}
                       name={[name, 'name_en']}
@@ -266,12 +266,19 @@ export default function ProfileAdminPage() {
                     >
                       <InputNumber min={0} max={100} step={5}/>
                     </Form.Item>
+                    <Form.Item className="">
+                      <Button 
+                        type="link" 
+                        danger 
+                        onClick={() => remove(name)} 
+                        block
+                        className="border border-transparent hover:border-dashed hover:border-red-500"
+                      >
+                        Remove
+                      </Button>
+                    </Form.Item>
                   </div>
-                  <Form.Item className="mt-1">
-                    <Button type="link" danger onClick={() => remove(name)} block>
-                      Remove
-                    </Button>
-                  </Form.Item>
+                  
                 </div>
               ))}
               <Form.Item>

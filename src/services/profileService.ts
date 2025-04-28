@@ -1,6 +1,6 @@
 import type { Profile } from "../types";
 import type { ProfileAdmin } from '../types/profileAdmin';
-import { API_URL } from "../api/api";
+import { API_URL } from "../utils/api";
 
 class ProfileService {
   static async getProfile(language: string): Promise<Profile> {
