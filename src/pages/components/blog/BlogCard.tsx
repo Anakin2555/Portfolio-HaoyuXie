@@ -2,6 +2,7 @@ import { Link } from 'react-router-dom';
 import { Clock } from 'lucide-react';
 import { BlogPost } from '../../../types';
 import { useTheme } from '../../../context/ThemeContext';
+import { IMG_URL } from '../../../utils/api';
 
 interface BlogCardProps {
   post: BlogPost;
@@ -17,7 +18,7 @@ export default function BlogCard({ post }: BlogCardProps) {
         theme === 'dark' ? 'bg-gray-700' : 'bg-white'
       }`}>
       <img
-        src={post.image}
+        src={`${IMG_URL}/${post.image}`}  
         alt={post.title}
         className="w-full h-48 object-cover"
       />

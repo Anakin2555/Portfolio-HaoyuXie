@@ -22,8 +22,6 @@ export default function Home() {
   const t = translations[language];
 
 
-  
-
   // Navigate to Projects page
   function toProject(){
       navigate('/projects')

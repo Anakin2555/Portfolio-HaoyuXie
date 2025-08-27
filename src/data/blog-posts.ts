@@ -7,7 +7,7 @@ export const blogPosts: BlogPost[] = [
     excerpt: 'Exploring upcoming trends and technologies in web development',
     date: '2024-03-15',
     readTime: '5 min read',
-    image: 'https://images.unsplash.com/photo-1461749280684-dccba630e2f6?auto=format&fit=crop&q=80',
+    image: 'blog1.jpg',
     content: `As we venture deeper into the digital age, web development continues to evolve at an unprecedented pace. The landscape of web technologies, tools, and methodologies is transforming dramatically, shaping how we build and interact with the web. Let's explore the key trends and technologies that are likely to define the future of web development.
 
       Artificial Intelligence is revolutionizing web development. AI-powered tools are already assisting developers in writing code, detecting bugs, and optimizing performance. GitHub Copilot and similar AI coding assistants are just the beginning. In the future, we can expect more sophisticated code generation capabilities, AI-powered design systems that can convert mockups to code, automated testing and bug detection, intelligent performance optimization, and natural language interfaces for web development.
@@ -26,7 +26,7 @@ export const blogPosts: BlogPost[] = [
     excerpt: 'A comprehensive guide to React Hooks and their practical applications',
     date: '2024-03-10',
     readTime: '8 min read',
-    image: 'https://images.unsplash.com/photo-1633356122544-f134324a6cee?auto=format&fit=crop&q=80',
+    image: 'blog2.jpg',
     content: '...' // 这里可以添加 React Hooks 的内容
   }
 ];

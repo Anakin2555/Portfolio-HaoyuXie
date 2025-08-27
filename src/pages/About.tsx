@@ -4,6 +4,7 @@ import profileService from '../services/profileService';
 import type { Profile } from '../types';
 import { useLanguage } from '../context/LanguageContext';
 import { translations } from '../data/translations';
+import { IMG_URL } from '../utils/api';
 
 export default function About() {
     const [profile, setProfile] = useState<Profile | null>(null);
@@ -69,7 +70,7 @@ export default function About() {
                 
 
                     <img
-                        src={'https://raw.githubusercontent.com/anakin2555/pic/master/img/scenery.jpg'}
+                        src={`${IMG_URL}/scenery.jpg`}
                         alt="scenery avatar"
                         className="w-full h-auto object-contain rounded-[20px] shadow-lg 
                                  sm:max-w-sm md:max-w-md lg:max-w-lg xl:max-w-xl 2xl:max-w-2xl"

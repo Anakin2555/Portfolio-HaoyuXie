@@ -1,7 +1,25 @@
 import { Thought } from "../types";
 import { API_URL } from "../utils/api";
+export interface ThoughtAdmin{
+  id: string
+  title:{
+    en: string
+    zh: string
+  }
+  content:{
+    en: string
+    zh: string
+  }
+  fullContent:{
+    en: string
+    zh: string
+  }
+  date: string
+}
+
 
 class ThoughtService {
+  
   static async getThoughts(language: string): Promise<Thought[]> {
     try {
       const response = await fetch(`${API_URL}/thoughts/?lang=${language}`, {
@@ -33,7 +51,7 @@ class ThoughtService {
     }
   }
 
-  static async addThought(thought: Thought): Promise<Thought> {
+  static async addThought(thought: ThoughtAdmin): Promise<ThoughtAdmin> {
     try {
       const response = await fetch(`${API_URL}/thoughts`, {
         method: 'POST',
@@ -51,6 +69,45 @@ class ThoughtService {
     } catch (error) {
       console.error('Error adding thought:', error);
       throw new Error('Failed to add thought');
+    }
+  }
+
+  static async updateThought(thought: ThoughtAdmin): Promise<ThoughtAdmin> {
+    try {
+      const response = await fetch(`${API_URL}/thoughts/${thought.id}`, {
+        method: 'PUT',
+        headers: {
+          'Content-Type': 'application/json', 
+        },
+        body: JSON.stringify(thought),
+      });
+
+      if (!response.ok) {
+        throw new Error(`HTTP error! status: ${response.status}`);
+      }
+
+      return await response.json();
+    } catch (error) {
+      console.error('Error updating thought:', error);
+      throw new Error('Failed to update thought');
+    }
+  }
+
+  static async deleteThought(id: string): Promise<void> {
+    try {
+      const response = await fetch(`${API_URL}/thoughts/${id}`, {
+        method: 'DELETE',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+      });
+
+      if (!response.ok) {
+        throw new Error(`HTTP error! status: ${response.status}`);
+      }
+    } catch (error) {
+      console.error('Error deleting thought:', error);
+      throw new Error('Failed to delete thought');
     }
   }
 }

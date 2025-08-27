@@ -44,11 +44,21 @@ export const setApiMode = (mode: ApiMode): void => {
 };
 
 // 根据环境动态选择 API URL
-const getApiUrl = () => {
-
+const getUrl = (type: 'api' | 'img'|'file') => {
   const isDevelopment = EnvUtil.isDevelopment();
   const isVercel = EnvUtil.isVercel();
   const envInfo = EnvUtil.getEnvInfo();
+
+  const localUrl={
+    api: 'http://localhost:3001/api',
+    img: 'http://localhost:3001/images',
+    file: 'http://localhost:3001/files'
+  }
+  const remoteUrl={
+    api: 'https://api.haoyuxie.xyz/api',
+    img: 'https://img.haoyuxie.xyz/images',
+    file: 'https://img.haoyuxie.xyz/files'  
+  }
   
   // 检查本地存储中的手动设置
   const storedMode = getStoredApiMode();
@@ -62,25 +72,27 @@ const getApiUrl = () => {
   // 优先使用手动设置的 API 模式
   if (storedMode === ApiMode.LOCAL) {
     console.log('使用手动设置的本地 API');
-    return 'http://localhost:3001/api';
+    return localUrl[type];
   } else if (storedMode === ApiMode.PROXY) {
     console.log('使用手动设置的代理 API');
-    return '/api';
+    return localUrl[type];
   } else if (storedMode === ApiMode.REMOTE) {
     console.log('使用手动设置的远程 API');
-    return 'https://api.haoyuxie.xyz';
+    return remoteUrl[type];
   }
 
   // 根据环境自动选择
   if (isDevelopment) {
     // 本地开发环境
     console.log('使用本地开发环境 API');
-    return 'http://localhost:3001/api';
+    return localUrl[type];
   } else if (isVercel) {
     // Vercel 生产环境，使用相对路径通过中间件代理
     console.log('使用生产环境 API');
-    return 'https://api.haoyuxie.xyz/api';
+      return remoteUrl[type];
+    
   }
 };
-
-export const API_URL = getApiUrl();
+export const FILE_URL = getUrl('file');
+export const IMG_URL = getUrl('img');
+export const API_URL = getUrl('api');

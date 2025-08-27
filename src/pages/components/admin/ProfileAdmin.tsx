@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react';
-import { useTheme } from '../../../hooks/useTheme';
+// import { useTheme } from '../../../hooks/useTheme';
 import type { ProfileAdmin } from '../../../types/profileAdmin';
 import { InputNumber, message } from 'antd';
 import Form from 'antd/es/form';
@@ -10,7 +10,7 @@ import type { FormListFieldData, FormListOperation } from 'antd/es/form/FormList
 import profileService from '../../../services/profileService';
 
 export default function ProfileAdminPage() {
-  const { theme } = useTheme();
+  // const { theme } = useTheme();
   const [loading, setLoading] = useState(false);
   const [form] = Form.useForm();
 

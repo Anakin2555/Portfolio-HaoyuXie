@@ -10,13 +10,13 @@ import ReactMarkdown from 'react-markdown';
 import projectService from '../services/projectService';
 import BlogService from '../services/blogService';
 import { useLanguage } from '../context/LanguageContext';
-import { Prism as SyntaxHighlighter } from 'react-syntax-highlighter'
-import { vscDarkPlus } from 'react-syntax-highlighter/dist/esm/styles/prism'
-import remarkGfm from 'remark-gfm'  // GitHub Flavored Markdown
-import rehypeRaw from 'rehype-raw'  // 支持内联HTML
-import remarkMath from 'remark-math' // 数学公式支持
-import rehypeKatex from 'rehype-katex' // 数学公式渲染
-
+import { Prism as SyntaxHighlighter } from 'react-syntax-highlighter';
+import { vscDarkPlus } from 'react-syntax-highlighter/dist/esm/styles/prism';
+import remarkGfm from 'remark-gfm';
+import remarkMath from 'remark-math';
+import rehypeKatex from 'rehype-katex';
+import rehypeRaw from 'rehype-raw';
+import { FILE_URL, IMG_URL } from '../utils/api';
 // Add type definition for code component props
 interface CodeProps extends React.ComponentPropsWithoutRef<'code'> {
   inline?: boolean;
@@ -30,29 +30,56 @@ export default function Detail() {
   const {language} = useLanguage();
 
   const [item, setItem] = useState<BlogPost | Project | null>(null);
+  const [markdownContent, setMarkdownContent] = useState<string>('');
 
   // 获取内容类型
   const type = location.pathname.split('/')[1];
   
-  useEffect(() => { 
-    switch (type) {
-      case 'blogs':
+  // 第一个useEffect仅负责获取项目
+  useEffect(() => {
+    if (id && type) {
+      if (type === 'projects') {
+        projectService.getProjectById(id, language).then((project) => {
+          setItem(project);
+        });
+      } else if (type === 'blogs') {
         if(id){
           BlogService.getBlogPostById(id,language).then((blogPost) => {
           setItem(blogPost);
         });
       }
-      break;
-    case 'projects':
-      if (id) {
-        projectService.getProjectById(id,language).then((project) => {
-          setItem(project);
-        });
       }
-      break;
     }
-  }, [type, id, language]);
+  }, [id, type, language]);
 
+  // 第二个useEffect监听item变化，获取Markdown内容
+  useEffect(() => {
+    const fetchMarkdownContent = async () => {
+      if (item) {
+        try {
+          let fileUrl = '';
+          if(type==='projects'){
+            fileUrl = `${FILE_URL}/project/${(item as Project).contentFile}`;
+          }else{
+            fileUrl = `${FILE_URL}/blog/${(item as BlogPost).contentFile}`;
+          }
+          
+          const response = await fetch(fileUrl);
+          
+          if (!response.ok) {
+            throw new Error(`Failed to fetch markdown: ${response.status}`);
+          }
+          
+          const markdownText = await response.text();
+          setMarkdownContent(markdownText);
+        } catch (error) {
+          console.error('Error loading markdown file:', error);
+        }
+      }
+    };
+    
+    fetchMarkdownContent();
+  }, [item, type]); // 当item或type改变时执行
 
   if (!item) {
     return <div>Not found</div>;
@@ -73,25 +100,9 @@ export default function Detail() {
           Back to {type.charAt(0).toUpperCase() + type.slice(1)}
         </Link>
 
-        <img
-          src={type==='blogs' ? item.image : `https://raw.githubusercontent.com/anakin2555/pic/master/img/${(item as Project).image}`}
-          alt={item.title}
-          className="w-full object-cover rounded-xl mb-8"
-        />
+        
 
-        {/* 博客特有的元数据 */}
-        {type === 'blogs' && (
-          <div className={`flex items-center text-sm mb-4 ${
-            theme === 'dark' ? 'text-gray-400' : 'text-gray-500'
-          }`}>
-            <time dateTime={(item as BlogPost).date}>{(item as BlogPost).date}</time>
-            <span className="mx-2">•</span>
-            <span className="flex items-center">
-              <Clock size={16} className="mr-1" />
-              {(item as BlogPost).readTime}
-            </span>
-          </div>
-        )}
+        
 
         {/* 项目特有的元数据 */}
         {type === 'projects' && (
@@ -124,6 +135,40 @@ export default function Detail() {
           }`}>
             {item.excerpt}
           </p>
+
+
+
+          {/* 博客特有的元数据 */}
+          {type === 'blogs' && (
+            <div className={`flex items-center text-sm mb-4 ${
+              theme === 'dark' ? 'text-gray-400' : 'text-gray-500'
+            }`}>
+              <time dateTime={(item as BlogPost).date}>{(item as BlogPost).date}</time>
+              <span className="mx-2">•</span>
+              <span className="flex items-center">
+                <Clock size={16} className="mr-1" />
+                {(item as BlogPost).readTime}
+              </span>
+            </div>
+          )}
+
+
+
+
+
+
+
+
+          {/* 大图 */}
+          <img
+            src={type==='blogs' ? `${IMG_URL}/${(item as BlogPost).image}` : `${IMG_URL}/${(item as Project).image}`}
+            alt={item.title}
+            className="w-full object-cover rounded-xl mb-8"
+          />
+
+
+
+
           <div className={
             theme === 'dark' ? 'text-gray-300' : 'text-gray-600'
           }>
@@ -136,6 +181,9 @@ export default function Detail() {
               //     <br />
               //   </React.Fragment>
               // )) : 
+
+
+              // MarkDown渲染
               <ReactMarkdown
                 remarkPlugins={[remarkGfm, remarkMath]}
                 rehypePlugins={[rehypeRaw, rehypeKatex]}
@@ -199,7 +247,7 @@ export default function Detail() {
                   ),
                 }}
               >
-                {(item as Project).content}
+               {markdownContent}
               </ReactMarkdown>
             }
           </div>

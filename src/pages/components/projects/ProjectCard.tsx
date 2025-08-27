@@ -2,6 +2,7 @@ import { ExternalLink, Github } from 'lucide-react';
 import { Project } from '../../../types';
 import { useTheme } from '../../../context/ThemeContext';
 import { Link } from 'react-router-dom';
+import { IMG_URL } from '../../../utils/api';
 
 interface ProjectCardProps {
   project: Project;   
@@ -16,7 +17,7 @@ export default function ProjectCard({ project, type }: ProjectCardProps) {
       <div className={`relative w-full rounded-xl shadow-fuchsia-700 overflow-hidden group ${
         theme === 'dark' ? 'bg-gray-700' : 'bg-gray-100'}`}>
         <img
-          src={`https://raw.githubusercontent.com/anakin2555/pic/master/img/${project.image}`}
+          src={`${IMG_URL}/${project.image}`}
           alt={project.title}
           className={`object-cover object-top w-full ${type === 'home' ? 'h-[500px]' : ''} `}
         />

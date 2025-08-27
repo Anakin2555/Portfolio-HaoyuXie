@@ -8,7 +8,8 @@ import UpdatesAdminPage from './components/admin/UpdatesAdmin';
 import BlogsAdminPage from './components/admin/BlogsAdmin';
 import { Navigate } from 'react-router-dom';
 import EnvUtil from '../utils/envUtil';
-
+import ProjectAdmin from './components/admin/ProjectAdmin';
+import MessageAdmin from './components/admin/MessageAdmin';
 type AdminSection = 'profile' | 'updates' | 'projects' | 'blogs' | 'messages';
 
 export default function Admin() {
@@ -28,11 +29,11 @@ export default function Admin() {
       case 'updates':
         return <UpdatesAdminPage />;
       case 'projects':
-        return <div>Projects Management (Coming Soon)</div>;
+        return <ProjectAdmin />;
       case 'blogs':
         return <BlogsAdminPage /> ;
       case 'messages':
-        return <div>Message Board Management (Coming Soon)</div>;
+        return <MessageAdmin />;
       default:
         return <ProfileAdminPage />;
     }

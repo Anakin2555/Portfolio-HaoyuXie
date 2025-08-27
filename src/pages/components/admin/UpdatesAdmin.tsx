@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react';
-import { useTheme } from '../../../hooks/useTheme';
-import UpdateService, { Update, CreateUpdateDTO } from '../../../services/updateService';
+// import { useTheme } from '../../../hooks/useTheme';
+import UpdateService, { UpdateAdmin as Update, CreateUpdateDTO } from '../../../services/updateService';
 import Form from 'antd/es/form';
 import Input from 'antd/es/input';
 import Button from 'antd/es/button';
@@ -15,12 +15,12 @@ import { useAppSelector } from '../../../store/hooks';
 import EnvUtil from '../../../utils/envUtil';
 
 export default function UpdatesAdminPage() {
-  const { theme } = useTheme();
+  // const { theme } = useTheme();
   const [loading, setLoading] = useState(false);
   const [updates, setUpdates] = useState<Update[]>([]);
   const [isModalVisible, setIsModalVisible] = useState(false);
   const [isEditing, setIsEditing] = useState(false);
-  const [currentUpdateId, setCurrentUpdateId] = useState<number | null>(null);
+  const [currentUpdateId, setCurrentUpdateId] = useState<string | null>(null);
   const [form] = Form.useForm();
   const { currentUser } = useAppSelector(state => state.user);
 
@@ -134,7 +134,7 @@ export default function UpdatesAdminPage() {
     }
   };
 
-  const handleDelete = async (id: number) => {
+  const handleDelete = async (id: string) => {
     Modal.confirm({
       title: 'Are you sure you want to delete this update?',
       content: 'This action cannot be undone.',

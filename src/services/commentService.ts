@@ -81,6 +81,49 @@ class CommentService {
     return response.json();
   }
 
+  // 获取所有有评论的页面ID
+  static async getPageIds(): Promise<string[]> {
+    try {
+      const response = await fetch(`${API_URL}/comments/pages`, {
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        mode: 'cors',
+      });
+      
+      if (!response.ok) {
+        throw new Error(`HTTP error! status: ${response.status}`);
+      }
+      
+      const data = await response.json();
+      
+      if (!Array.isArray(data)) {
+        console.error('Expected array of page IDs, received:', data);
+        return [];
+      }
+      
+      return data;
+    } catch (error) {
+      console.error('Error fetching page IDs:', error);
+      return [];
+    }
+  }
+
+  // 删除评论
+  static async deleteComment(id: string): Promise<void> {
+    const response = await fetch(`${API_URL}/comments/${id}`, {
+      method: 'DELETE',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      mode: 'cors',
+    });
+    
+    if (!response.ok) {
+      throw new Error(`HTTP error! status: ${response.status}`);
+    }
+  }
+
   // 添加评论
   static async addComment(comment: Comment): Promise<Comment> {
     try {

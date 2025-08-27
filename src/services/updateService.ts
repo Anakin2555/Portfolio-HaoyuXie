@@ -1,7 +1,7 @@
+import { Update } from '../types';
 import { API_URL } from '../utils/api';
-
-export interface Update {
-  id: number;
+export interface UpdateAdmin {
+  id: string;
   title: {
     en: string;
     zh: string;
@@ -13,7 +13,7 @@ export interface Update {
   };
 }
 
-export type CreateUpdateDTO = Omit<Update, 'id'>;
+export type CreateUpdateDTO = Omit<UpdateAdmin, 'id'>;
 export type UpdateUpdateDTO = CreateUpdateDTO;
 
 class UpdateService {
@@ -33,7 +33,7 @@ class UpdateService {
     }
   }
 
-  static async createUpdate(update: CreateUpdateDTO): Promise<Update> {
+  static async createUpdate(update: CreateUpdateDTO): Promise<UpdateAdmin> {
     try {
       const response = await fetch(`${API_URL}/updates`, {
         method: 'POST',
@@ -54,7 +54,7 @@ class UpdateService {
     }
   }
   
-  static async updateUpdate(id: number, update: UpdateUpdateDTO): Promise<Update> {
+  static async updateUpdate(id: string, update: UpdateUpdateDTO): Promise<UpdateAdmin> {
     try {
       const response = await fetch(`${API_URL}/updates/${id}`, {
         method: 'PUT',
@@ -75,7 +75,7 @@ class UpdateService {
     }
   }
   
-  static async deleteUpdate(id: number): Promise<void> {
+  static async deleteUpdate(id: string): Promise<void> {
     try {
       const response = await fetch(`${API_URL}/updates/${id}`, {
         method: 'DELETE',

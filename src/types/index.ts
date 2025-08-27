@@ -3,7 +3,7 @@ export interface Project {
   title: string;
   excerpt: string;
   image: string;
-  content: string;  // 替换原来的 contentText
+  contentFile: string;
   tags: string[];
   demoUrl?: string;
   githubUrl?: string;
@@ -16,7 +16,7 @@ export interface BlogPost {
   date: string;
   readTime: string;
   image: string;
-  content:string;
+  contentFile: string;
 }
 
 export interface Skill {
