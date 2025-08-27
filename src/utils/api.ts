@@ -56,8 +56,8 @@ const getUrl = (type: 'api' | 'img'|'file') => {
   }
   const remoteUrl={
     api: 'https://api.haoyuxie.xyz/api',
-    img: 'https://img.haoyuxie.xyz/images',
-    file: 'https://img.haoyuxie.xyz/files'  
+    img: 'https://haoyuxie.xyz/images',
+    file: 'https://haoyuxie.xyz/files'  
   }
   
   // 检查本地存储中的手动设置
