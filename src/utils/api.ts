@@ -55,9 +55,9 @@ const getUrl = (type: 'api' | 'img'|'file') => {
     file: 'http://localhost:3001/files'
   }
   const remoteUrl={
-    api: 'https://api.haoyuxie.xyz/api',
-    img: 'https://api.haoyuxie.xyz/images',
-    file: 'https://api.haoyuxie.xyz/files'  
+    api: 'https://api.bestapp.com.cn/api',
+    img: 'https://api.bestapp.com.cn/images',
+    file: 'https://api.bestapp.com.cn/files'  
   }
   
   // 检查本地存储中的手动设置
