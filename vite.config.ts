@@ -12,7 +12,7 @@ export default defineConfig({
       verbose: true,
     }),
   ],
-  base:"./",
+  base: '/',
   optimizeDeps: {
     exclude: ['lucide-react'],
   },
